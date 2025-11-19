@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>The Solenis Advantage - Interactive Sales Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: #0D3B47;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .header-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 5px;
+        }
+        
+        .header-subtitle {
+            font-size: 14px;
+            color: #1DE9B6;
+        }
+        
+        /* Tab Navigation */
+        .tab-nav {
+            background: #FFFFFF;
+            display: flex;
+            overflow-x: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 78px;
+            z-index: 99;
+        }
+        
+        .tab-button {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px 10px;
+            background: #FFFFFF;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #5A6C75;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-button:hover {
+            background: #F8FEFF;
+        }
+        
+        .tab-button.active {
+            color: #0D3B47;
+            border-bottom-color: #1DE9B6;
+            background: #F8FEFF;
+        }
+        
+        /* Content Container */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Card Styles */
+        .card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1A3A47;
+            margin-bottom: 15px;
+            padding-left: 12px;
+            border-left: 4px solid #1DE9B6;
+        }
+        
+        .card-subtitle {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A3A47;
+            margin: 20px 0 12px 0;
+        }
+        
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Feature Items */
+        .feature-item {
+            padding: 15px;
+            background: #F8FEFF;
+            border-radius: 6px;
+            border-left: 4px solid #1DE9B6;
+        }
+        
+        .feature-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1A3A47;
+            margin-bottom: 8px;
+        }
+        
+        .feature-description {
+            font-size: 13px;
+            color: #5A6C75;
+            line-height: 1.5;
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #1DE9B6 0%, #0BC9A6 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .highlight-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0D3B47;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-text {
+            font-size: 14px;
+            color: #0D3B47;
+            line-height: 1.6;
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .comparison-table th {
+            background: #A0F4E8;
+            color: #1A3A47;
+            font-weight: 700;
+            padding: 12px 10px;
+            text-align: left;
+        }
+        
+        .comparison-table th.highlight-header {
+            background: #1DE9B6;
+            color: #FFFFFF;
+        }
+        
+        .comparison-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #E5E5E5;
+            color: #5A6C75;
+        }
+        
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: #1A3A47;
+            background: #F8FEFF;
+        }
+        
+        .comparison-table td.highlight-col {
+            background: #A0F4E8;
+            font-weight: 700;
+            color: #1A3A47;
+        }
+        
+        .comparison-table tr:hover td:not(:first-child) {
+            background: #F0F9F7;
+        }
+        
+        /* Calculator */
+        .calculator {
+            background: #F8FEFF;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #1DE9B6;
+        }
+        
+        .calculator-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .calculator label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A3A47;
+        }
+        
+        .calculator input {
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #A0F4E8;
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .calculator input:focus {
+            outline: none;
+            border-color: #1DE9B6;
+        }
+        
+        .calculator-result {
+            background: #FFFFFF;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .calculator-result-label {
+            font-size: 14px;
+            color: #5A6C75;
+            margin-bottom: 8px;
+        }
+        
+        .calculator-result-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1DE9B6;
+        }
+        
+        .calculator-result-tier {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A3A47;
+            margin-top: 8px;
+        }
+        
+        /* Tier Cards */
+        .tier-card {
+            background: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #A0F4E8;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .tier-card:hover {
+            border-color: #1DE9B6;
+            box-shadow: 0 4px 12px rgba(29, 233, 182, 0.2);
+        }
+        
+        .tier-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A3A47;
+            margin-bottom: 10px;
+        }
+        
+        .tier-accrual {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1DE9B6;
+            margin: 10px 0;
+        }
+        
+        .tier-detail {
+            font-size: 13px;
+            color: #5A6C75;
+            line-height: 1.5;
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #E5E5E5;
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            border-color: #1DE9B6;
+            box-shadow: 0 4px 12px rgba(29, 233, 182, 0.15);
+        }
+        
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A3A47;
+            margin-bottom: 10px;
+        }
+        
+        .product-description {
+            font-size: 13px;
+            color: #5A6C75;
+            line-height: 1.5;
+        }
+        
+        /* Contact Buttons */
+        .contact-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .contact-button {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 25px;
+            background: #1DE9B6;
+            color: #0D3B47;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .contact-button:hover {
+            background: #0BC9A6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(29, 233, 182, 0.3);
+        }
+        
+        .contact-button.secondary {
+            background: #0D3B47;
+            color: #FFFFFF;
+        }
+        
+        .contact-button.secondary:hover {
+            background: #1A4A57;
+        }
+        
+        /* Info Text */
+        .info-text {
+            font-size: 14px;
+            color: #5A6C75;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 22px;
+            }
+            
+            .tab-button {
+                font-size: 12px;
+                padding: 12px 8px;
+            }
+            
+            .content-container {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1 class="header-title">The Solenis Advantage</h1>
+        <p class="header-subtitle">Your Partner in Pool Solutions Excellence</p>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+        <button class="tab-button active" onclick="showTab('overview')">Overview</button>
+        <button class="tab-button" onclick="showTab('calhypo')">Cal Hypo</button>
+        <button class="tab-button" onclick="showTab('clearfund')">ClearFund</button>
+        <button class="tab-button" onclick="showTab('products')">Products</button>
+        <button class="tab-button" onclick="showTab('contact')">Contact</button>
+    </div>
+    
+    <!-- Content Container -->
+    <div class="content-container">
+        
+        <!-- OVERVIEW TAB -->
+        <div id="overview" class="tab-content active">
+            <div class="card">
+                <h2 class="card-title">Why Leading Dealers Choose Solenis</h2>
+                <div class="grid-2">
+                    <div class="feature-item">
+                        <div class="feature-title">Only U.S. Cal Hypo Manufacturer</div>
+                        <p class="feature-description">Complete chlorine portfolio with domestic production ensures supply reliability and superior quality control</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Industry-Leading ClearFund Program</div>
+                        <p class="feature-description">Earn 3-7% accrual on qualifying purchases for marketing, training, and business growth</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Global Scale, Local Support</div>
+                        <p class="feature-description">Part of Solenis: 200K+ customers, 130 countries, 70+ facilities worldwide</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Sustainability Leadership</div>
+                        <p class="feature-description">Top 5% EcoVadis rating resonates with environmentally conscious consumers</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Complete Brand Portfolio</div>
+                        <p class="feature-description">Poolife, BAQUACIL, Sirona, PristineBlue, GLB, Leisure Time—solutions for every customer</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Advanced Water Testing</div>
+                        <p class="feature-description">Clear360 Touch technology with professional reporting and customer management</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3 class="highlight-title">Your Dedicated Territory Sales Manager Makes the Difference</h3>
+                <p class="highlight-text">Unlike competitors who rely on call centers, you get a dedicated industry veteran who knows your business, provides customized training, responds to challenges quickly, and is invested in your long-term success. Your TSM is your competitive advantage.</p>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">Who We Are</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3 class="card-subtitle">Pool Solutions Leadership</h3>
+                        <p class="info-text">Solenis Pool Solutions is the only U.S. manufacturer with a complete chlorine portfolio (Cal Hypo, Dichlor, Trichlor), delivering unmatched product expertise, manufacturing excellence, and supply chain reliability to pool professionals nationwide.</p>
+                    </div>
+                    <div>
+                        <h3 class="card-subtitle">Backed by Global Scale</h3>
+                        <p class="info-text">As part of Solenis, a global leader serving 200,000+ customers across 130 countries from 70+ manufacturing and service facilities worldwide, we bring enterprise-level resources, consistent quality, and reliable supply to support your business growth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CAL HYPO TAB -->
+        <div id="calhypo" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">Cal Hypo: The Clear Winner</h2>
+                <p class="info-text">When customers compare options, Cal Hypo's advantages become clear. While liquid bleach may appear cheaper upfront, its instability and low concentration make it more expensive over time. Trichlor and dichlor add cyanuric acid that reduces sanitizer effectiveness and requires costly water replacement.</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th class="highlight-header">Cal Hypo</th>
+                            <th>Liquid Bleach</th>
+                            <th>Trichlor</th>
+                            <th>Dichlor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Chlorine Strength</td>
+                            <td class="highlight-col">65-73%</td>
+                            <td>10-12%</td>
+                            <td>90%</td>
+                            <td>56-62%</td>
+                        </tr>
+                        <tr>
+                            <td>Stability</td>
+                            <td class="highlight-col">Excellent (long shelf life)</td>
+                            <td>Poor (degrades quickly)</td>
+                            <td>Good</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr>
+                            <td>CYA Buildup</td>
+                            <td class="highlight-col">None</td>
+                            <td>None</td>
+                            <td>Yes (major issue)</td>
+                            <td>Yes (moderate issue)</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Effectiveness</td>
+                            <td class="highlight-col">Excellent</td>
+                            <td>Poor (high volume needed)</td>
+                            <td>Good</td>
+                            <td>Moderate</td>
+                        </tr>
+                        <tr>
+                            <td>Shock Performance</td>
+                            <td class="highlight-col">Excellent</td>
+                            <td>Poor</td>
+                            <td>Moderate</td>
+                            <td>Moderate</td>
+                        </tr>
+                        <tr>
+                            <td>Storage</td>
+                            <td class="highlight-col">Easy (dry, compact)</td>
+                            <td>Difficult (liquid, corrosive)</td>
+                            <td>Easy</td>
+                            <td>Easy</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box">
+                    <h3 class="highlight-title">Bottom Line</h3>
+                    <p class="highlight-text">Cal Hypo delivers superior performance without the long-term problems of CYA buildup or the inconvenience of liquid handling. It's the smart choice for dealers and pool owners who want reliable, cost-effective sanitization.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">The Cal Hypo Advantage</h2>
+                <div class="grid-2">
+                    <div class="feature-item">
+                        <div class="feature-title">Superior Sanitization</div>
+                        <p class="feature-description">65-73% available chlorine delivers powerful disinfection and oxidation</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">No CYA Buildup</div>
+                        <p class="feature-description">Prevents water balance issues and costly drain/refill cycles</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Excellent Stability</div>
+                        <p class="feature-description">Long shelf life reduces waste and inventory costs</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Easy Storage & Handling</div>
+                        <p class="feature-description">Dry, compact form is safer and more convenient than liquid alternatives</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Cost Effective</div>
+                        <p class="feature-description">High concentration means less product needed per treatment</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Domestic Manufacturing</div>
+                        <p class="feature-description">Only U.S. manufacturer ensures reliable supply and quality control</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CLEARFUND TAB -->
+        <div id="clearfund" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">ClearFund Co-Op Program</h2>
+                <p class="info-text">Earn valuable accruals on qualifying purchases to invest in marketing, training, and business growth. The more you purchase, the more you earn.</p>
+                
+                <div class="grid-3">
+                    <div class="tier-card">
+                        <div class="tier-name">Platinum</div>
+                        <div class="tier-accrual">7%</div>
+                        <div class="tier-detail">$300K+ annual purchases<br><br><strong>Priority 1 Service</strong><br>Highest priority support</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-name">Gold</div>
+                        <div class="tier-accrual">7%</div>
+                        <div class="tier-detail">$125K+ annual purchases<br><br><strong>Priority 2 Service</strong><br>Enhanced support level</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-name">Silver</div>
+                        <div class="tier-accrual">5%</div>
+                        <div class="tier-detail">$65K+ annual purchases<br><br><strong>Full Program Access</strong><br>All ClearFund benefits</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">Calculate Your ClearFund Accrual</h2>
+                <div class="calculator">
+                    <div class="calculator-input">
+                        <label for="purchaseAmount">Enter Annual Purchase Amount ($):</label>
+                        <input type="number" id="purchaseAmount" placeholder="e.g., 150000" oninput="calculateAccrual()">
+                    </div>
+                    <div class="calculator-result" id="calculatorResult" style="display: none;">
+                        <div class="calculator-result-label">Your Annual ClearFund Accrual:</div>
+                        <div class="calculator-result-value" id="accrualAmount">$0</div>
+                        <div class="calculator-result-tier" id="tierLevel"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">How to Use Your ClearFund Accrual</h2>
+                <div class="grid-2">
+                    <div class="feature-item">
+                        <div class="feature-title">Marketing Materials</div>
+                        <p class="feature-description">Brochures, signage, digital assets, and promotional items</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Training Programs</div>
+                        <p class="feature-description">RITE certification, Aquanology courses, and staff development</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Trade Show Support</div>
+                        <p class="feature-description">Booth materials, product samples, and event sponsorships</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Digital Marketing</div>
+                        <p class="feature-description">Website development, social media campaigns, and online advertising</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PRODUCTS TAB -->
+        <div id="products" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">Complete Pool Sanitization Portfolio</h2>
+                <p class="info-text">We offer industry-leading brands across both Dealer Direct and Branded Distribution channels, giving you the flexibility to serve every customer segment.</p>
+                
+                <h3 class="card-subtitle">Dealer Direct Brands</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-name">Poolife®</div>
+                        <p class="product-description">Premium pool care products including Cal Hypo, Dichlor, Trichlor, and complete water care solutions. The trusted choice for pool professionals.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-name">BAQUACIL®</div>
+                        <p class="product-description">Chlorine-free pool care system using biguanide technology. Gentle on skin and eyes, perfect for customers seeking alternatives.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-name">Sirona™</div>
+                        <p class="product-description">Innovative Simply™ sanitizers and spa care products. Modern solutions for today's pool and spa owners.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-name">PristineBlue®</div>
+                        <p class="product-description">Copper-based algaecide and clarifier system. Non-chlorine alternative for crystal clear water.</p>
+                    </div>
+                </div>
+                
+                <h3 class="card-subtitle">Branded Distribution</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-name">GLB®</div>
+                        <p class="product-description">Comprehensive pool care line including sanitizers, balancers, and specialty chemicals. Trusted by retailers nationwide.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-name">Leisure Time®</div>
+                        <p class="product-description">Complete spa care system with simple, effective solutions. The #1 choice for hot tub and spa maintenance.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">Value-Added Services</h2>
+                <div class="grid-2">
+                    <div class="feature-item">
+                        <div class="feature-title">Expert Support</div>
+                        <p class="feature-description">Dedicated Territory Sales Managers provide personalized guidance and rapid response to technical questions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Clear360 Touch Technology</div>
+                        <p class="feature-description">Advanced water testing with professional reporting and customer management capabilities</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Training Programs</div>
+                        <p class="feature-description">RITE certification and Aquanology courses build team expertise and confidence</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Marketing Support</div>
+                        <p class="feature-description">Co-branded materials, digital assets, and promotional resources through ClearFund</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CONTACT TAB -->
+        <div id="contact" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">Let's Build Success Together</h2>
+                <p class="info-text">Ready to experience the Solenis Advantage? Our team is here to support your business growth with industry-leading products, programs, and partnership.</p>
+                
+                <div class="contact-buttons">
+                    <a href="tel:1-866-765-3647" class="contact-button">
+                        📞 Call Customer Service<br>
+                        <small style="font-weight: 400; font-size: 14px;">1-866-765-3647</small>
+                    </a>
+                    <a href="mailto:clearcare@solenis.com" class="contact-button">
+                        ✉️ Email ClearCare Support<br>
+                        <small style="font-weight: 400; font-size: 14px;">clearcare@solenis.com</small>
+                    </a>
+                </div>
+                
+                <div class="contact-buttons">
+                    <a href="https://clearlinkcenter.com" target="_blank" class="contact-button secondary">
+                        🌐 Visit ClearLink Center<br>
+                        <small style="font-weight: 400; font-size: 14px;">clearlinkcenter.com</small>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">Your Territory Sales Manager</h2>
+                <p class="info-text">Your dedicated TSM is your direct line to Solenis Pool Solutions. They provide:</p>
+                <div class="grid-2">
+                    <div class="feature-item">
+                        <div class="feature-title">Personalized Support</div>
+                        <p class="feature-description">Regular visits and consultations tailored to your business needs</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Customized Training</div>
+                        <p class="feature-description">On-site staff training and product education programs</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Rapid Response</div>
+                        <p class="feature-description">Quick answers to technical questions and business challenges</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Long-Term Partnership</div>
+                        <p class="feature-description">Invested in your success, not just quarterly sales targets</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <h3 class="highlight-title">Contact Your TSM</h3>
+                    <p class="highlight-text">Don't have your Territory Sales Manager's contact information? Call Customer Service at 1-866-765-3647 and we'll connect you immediately.</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        // Tab Navigation
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // ClearFund Calculator
+        function calculateAccrual() {
+            const amount = parseFloat(document.getElementById('purchaseAmount').value);
+            const resultDiv = document.getElementById('calculatorResult');
+            const accrualDiv = document.getElementById('accrualAmount');
+            const tierDiv = document.getElementById('tierLevel');
+            
+            if (isNaN(amount) || amount <= 0) {
+                resultDiv.style.display = 'none';
+                return;
+            }
+            
+            let accrualRate = 0;
+            let tier = '';
+            
+            if (amount >= 300000) {
+                accrualRate = 0.07;
+                tier = 'Platinum Tier';
+            } else if (amount >= 125000) {
+                accrualRate = 0.07;
+                tier = 'Gold Tier';
+            } else if (amount >= 65000) {
+                accrualRate = 0.05;
+                tier = 'Silver Tier';
+            } else {
+                accrualRate = 0.03;
+                tier = 'Standard Tier';
+            }
+            
+            const accrual = amount * accrualRate;
+            
+            accrualDiv.textContent = '$' + accrual.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            tierDiv.textContent = tier + ' (' + (accrualRate * 100) + '% accrual)';
+            resultDiv.style.display = 'block';
+        }
+        
+        // Prevent zoom on double-tap (iOS)
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
