@@ -101,32 +101,38 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Card Styles */
+        /* Cards */
         .card {
             background: #FFFFFF;
             border-radius: 8px;
-            padding: 25px;
+            padding: 30px;
             margin-bottom: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
         .card-title {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
-            color: #1A3A47;
+            color: #0D3B47;
             margin-bottom: 15px;
-            padding-left: 12px;
-            border-left: 4px solid #1DE9B6;
         }
         
         .card-subtitle {
             font-size: 18px;
             font-weight: 700;
-            color: #1A3A47;
-            margin: 20px 0 12px 0;
+            color: #0D3B47;
+            margin-top: 25px;
+            margin-bottom: 15px;
         }
         
-        /* Grid Layouts */
+        .info-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #5A6C75;
+            margin-bottom: 20px;
+        }
+        
+        /* Grids */
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -135,175 +141,156 @@
         
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
         
         /* Feature Items */
         .feature-item {
-            padding: 15px;
+            padding: 20px;
             background: #F8FEFF;
             border-radius: 6px;
             border-left: 4px solid #1DE9B6;
         }
         
         .feature-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
-            color: #1A3A47;
+            color: #0D3B47;
             margin-bottom: 8px;
         }
         
         .feature-description {
-            font-size: 13px;
-            color: #5A6C75;
+            font-size: 14px;
             line-height: 1.5;
+            color: #5A6C75;
         }
         
         /* Highlight Box */
         .highlight-box {
-            background: linear-gradient(135deg, #1DE9B6 0%, #0BC9A6 100%);
-            padding: 20px;
+            background: linear-gradient(135deg, #1DE9B6 0%, #0D9B7E 100%);
+            padding: 25px;
             border-radius: 8px;
             margin: 20px 0;
+            color: #FFFFFF;
         }
         
         .highlight-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            color: #0D3B47;
             margin-bottom: 10px;
         }
         
         .highlight-text {
-            font-size: 14px;
-            color: #0D3B47;
+            font-size: 15px;
             line-height: 1.6;
+            opacity: 0.95;
         }
         
-        /* Comparison Table */
+        /* Table */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 20px 0;
             font-size: 14px;
         }
         
         .comparison-table th {
-            background: #A0F4E8;
-            color: #1A3A47;
-            font-weight: 700;
-            padding: 12px 10px;
-            text-align: left;
-        }
-        
-        .comparison-table th.highlight-header {
-            background: #1DE9B6;
+            background: #0D3B47;
             color: #FFFFFF;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
         }
         
         .comparison-table td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #E5E5E5;
-            color: #5A6C75;
+            padding: 12px 15px;
+            border-bottom: 1px solid #E0E0E0;
         }
         
-        .comparison-table td:first-child {
-            font-weight: 600;
-            color: #1A3A47;
+        .comparison-table tr:hover {
             background: #F8FEFF;
         }
         
-        .comparison-table td.highlight-col {
+        .comparison-table .highlight-col {
             background: #A0F4E8;
-            font-weight: 700;
-            color: #1A3A47;
+            font-weight: 600;
+            color: #0D3B47;
+            border-left: 3px solid #1DE9B6;
+            border-right: 3px solid #1DE9B6;
         }
         
-        .comparison-table tr:hover td:not(:first-child) {
-            background: #F0F9F7;
+        .comparison-table th.highlight-col {
+            background: #1DE9B6;
+            color: #0D3B47;
         }
         
         /* Calculator */
         .calculator {
             background: #F8FEFF;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
-            border: 2px solid #1DE9B6;
+            margin: 20px 0;
         }
         
-        .calculator-input {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .calculator label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1A3A47;
-        }
-        
-        .calculator input {
-            padding: 12px;
+        .calculator-input label {
+            display: block;
             font-size: 16px;
-            border: 2px solid #A0F4E8;
+            font-weight: 600;
+            color: #0D3B47;
+            margin-bottom: 10px;
+        }
+        
+        .calculator-input input {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #1DE9B6;
             border-radius: 6px;
             font-family: 'Open Sans', sans-serif;
         }
         
-        .calculator input:focus {
-            outline: none;
-            border-color: #1DE9B6;
-        }
-        
         .calculator-result {
-            background: #FFFFFF;
+            margin-top: 20px;
             padding: 20px;
+            background: #FFFFFF;
             border-radius: 6px;
-            text-align: center;
-            margin-top: 15px;
+            border-left: 4px solid #1DE9B6;
         }
         
         .calculator-result-label {
             font-size: 14px;
             color: #5A6C75;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         
         .calculator-result-value {
             font-size: 32px;
             font-weight: 700;
-            color: #1DE9B6;
+            color: #0D3B47;
+            margin-bottom: 10px;
         }
         
         .calculator-result-tier {
             font-size: 16px;
             font-weight: 600;
-            color: #1A3A47;
-            margin-top: 8px;
+            color: #1DE9B6;
         }
         
         /* Tier Cards */
         .tier-card {
             background: #FFFFFF;
-            padding: 20px;
+            border: 2px solid #1DE9B6;
             border-radius: 8px;
-            border: 2px solid #A0F4E8;
+            padding: 20px;
             text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .tier-card:hover {
-            border-color: #1DE9B6;
-            box-shadow: 0 4px 12px rgba(29, 233, 182, 0.2);
         }
         
         .tier-name {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            color: #1A3A47;
+            color: #0D3B47;
             margin-bottom: 10px;
         }
         
@@ -311,46 +298,109 @@
             font-size: 36px;
             font-weight: 700;
             color: #1DE9B6;
-            margin: 10px 0;
+            margin-bottom: 15px;
         }
         
         .tier-detail {
-            font-size: 13px;
-            color: #5A6C75;
+            font-size: 14px;
             line-height: 1.5;
+            color: #5A6C75;
         }
         
-        /* Product Grid */
+        /* Product Cards - NEW EXPANDABLE DESIGN */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
+            margin: 20px 0;
         }
         
         .product-card {
             background: #FFFFFF;
-            padding: 20px;
+            border: 2px solid #1DE9B6;
             border-radius: 8px;
-            border: 2px solid #E5E5E5;
+            overflow: hidden;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
         .product-card:hover {
-            border-color: #1DE9B6;
-            box-shadow: 0 4px 12px rgba(29, 233, 182, 0.15);
+            box-shadow: 0 4px 12px rgba(29, 233, 182, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .product-header {
+            background: linear-gradient(135deg, #0D3B47 0%, #1A4D5A 100%);
+            padding: 20px;
+            color: #FFFFFF;
         }
         
         .product-name {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 700;
-            color: #1A3A47;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
-        .product-description {
+        .product-tagline {
             font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .product-toggle {
+            padding: 15px 20px;
+            background: #F8FEFF;
+            text-align: center;
+            font-weight: 600;
+            color: #0D3B47;
+            border-top: 1px solid #E0E0E0;
+        }
+        
+        .product-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .product-details.expanded {
+            max-height: 2000px;
+        }
+        
+        .product-content {
+            padding: 20px;
+            background: #FFFFFF;
+        }
+        
+        .product-category {
+            margin-bottom: 20px;
+        }
+        
+        .category-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0D3B47;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #1DE9B6;
+        }
+        
+        .product-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .product-list li {
+            padding: 6px 0 6px 20px;
+            font-size: 14px;
             color: #5A6C75;
-            line-height: 1.5;
+            position: relative;
+        }
+        
+        .product-list li:before {
+            content: "•";
+            color: #1DE9B6;
+            font-weight: bold;
+            position: absolute;
+            left: 5px;
         }
         
         /* Contact Buttons */
@@ -358,47 +408,31 @@
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin: 20px 0;
         }
         
         .contact-button {
             flex: 1;
-            min-width: 200px;
-            padding: 15px 25px;
-            background: #1DE9B6;
-            color: #0D3B47;
-            font-size: 16px;
-            font-weight: 700;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
+            min-width: 250px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1DE9B6 0%, #0D9B7E 100%);
+            color: #FFFFFF;
             text-align: center;
-            display: inline-block;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(29, 233, 182, 0.3);
         }
         
         .contact-button:hover {
-            background: #0BC9A6;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(29, 233, 182, 0.3);
+            box-shadow: 0 4px 12px rgba(29, 233, 182, 0.4);
         }
         
         .contact-button.secondary {
-            background: #0D3B47;
-            color: #FFFFFF;
-        }
-        
-        .contact-button.secondary:hover {
-            background: #1A4A57;
-        }
-        
-        /* Info Text */
-        .info-text {
-            font-size: 14px;
-            color: #5A6C75;
-            line-height: 1.6;
-            margin: 15px 0;
+            background: linear-gradient(135deg, #0D3B47 0%, #1A4D5A 100%);
         }
         
         /* Responsive */
@@ -408,16 +442,30 @@
             }
             
             .tab-button {
-                font-size: 12px;
+                min-width: 100px;
+                font-size: 13px;
                 padding: 12px 8px;
-            }
-            
-            .content-container {
-                padding: 15px;
             }
             
             .card {
                 padding: 20px;
+            }
+            
+            .card-title {
+                font-size: 20px;
+            }
+            
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                font-size: 12px;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 8px;
             }
         }
     </style>
@@ -425,17 +473,17 @@
 <body>
     <!-- Header -->
     <div class="header">
-        <h1 class="header-title">The Solenis Advantage</h1>
-        <p class="header-subtitle">Your Partner in Pool Solutions Excellence</p>
+        <div class="header-title">The Solenis Advantage</div>
+        <div class="header-subtitle">Interactive Sales Tool for Dealer Partners</div>
     </div>
     
     <!-- Tab Navigation -->
     <div class="tab-nav">
-        <button class="tab-button active" onclick="showTab('overview')">Overview</button>
-        <button class="tab-button" onclick="showTab('calhypo')">Cal Hypo</button>
-        <button class="tab-button" onclick="showTab('clearfund')">ClearFund</button>
-        <button class="tab-button" onclick="showTab('products')">Products</button>
-        <button class="tab-button" onclick="showTab('contact')">Contact</button>
+        <button class="tab-button active" onclick="switchTab('overview')">Overview</button>
+        <button class="tab-button" onclick="switchTab('calhypo')">Cal Hypo</button>
+        <button class="tab-button" onclick="switchTab('clearfund')">ClearFund</button>
+        <button class="tab-button" onclick="switchTab('products')">Products</button>
+        <button class="tab-button" onclick="switchTab('contact')">Contact</button>
     </div>
     
     <!-- Content Container -->
@@ -444,120 +492,108 @@
         <!-- OVERVIEW TAB -->
         <div id="overview" class="tab-content active">
             <div class="card">
-                <h2 class="card-title">Why Leading Dealers Choose Solenis</h2>
+                <h2 class="card-title">Six Key Differentiators</h2>
                 <div class="grid-2">
                     <div class="feature-item">
-                        <div class="feature-title">Only U.S. Cal Hypo Manufacturer</div>
-                        <p class="feature-description">Complete chlorine portfolio with domestic production ensures supply reliability and superior quality control</p>
+                        <div class="feature-title">🏭 Only U.S. Cal Hypo Manufacturer</div>
+                        <p class="feature-description">Complete chlorine portfolio with domestic production advantage</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Industry-Leading ClearFund Program</div>
-                        <p class="feature-description">Earn 3-7% accrual on qualifying purchases for marketing, training, and business growth</p>
+                        <div class="feature-title">💰 ClearFund Co-Op Program</div>
+                        <p class="feature-description">Up to 7% accrual on purchases for marketing, training, and growth</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Global Scale, Local Support</div>
-                        <p class="feature-description">Part of Solenis: 200K+ customers, 130 countries, 70+ facilities worldwide</p>
+                        <div class="feature-title">🌍 Global Scale + Local Support</div>
+                        <p class="feature-description">$4B company with dedicated Territory Sales Managers</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Sustainability Leadership</div>
-                        <p class="feature-description">Top 5% EcoVadis rating resonates with environmentally conscious consumers</p>
+                        <div class="feature-title">🌱 Sustainability Leadership</div>
+                        <p class="feature-description">Top 5% EcoVadis rating for environmental responsibility</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Complete Brand Portfolio</div>
-                        <p class="feature-description">Poolife, BAQUACIL, Sirona, PristineBlue, GLB, Leisure Time—solutions for every customer</p>
+                        <div class="feature-title">🔬 Advanced Water Testing</div>
+                        <p class="feature-description">Clear360 Touch technology with professional reporting</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Advanced Water Testing</div>
-                        <p class="feature-description">Clear360 Touch technology with professional reporting and customer management</p>
+                        <div class="feature-title">🎓 Comprehensive Training</div>
+                        <p class="feature-description">RITE certification and Aquanology courses for your team</p>
                     </div>
                 </div>
             </div>
             
             <div class="highlight-box">
-                <h3 class="highlight-title">Your Dedicated Territory Sales Manager Makes the Difference</h3>
-                <p class="highlight-text">Unlike competitors who rely on call centers, you get a dedicated industry veteran who knows your business, provides customized training, responds to challenges quickly, and is invested in your long-term success. Your TSM is your competitive advantage.</p>
+                <div class="highlight-title">🤝 Your Territory Sales Manager Makes the Difference</div>
+                <div class="highlight-text">
+                    Unlike competitors who rely on call centers, Solenis provides dedicated Territory Sales Managers who know your business, respond quickly to technical questions, provide hands-on training, and build long-term partnerships. You're not just a customer—you're a partner.
+                </div>
             </div>
             
             <div class="card">
                 <h2 class="card-title">Who We Are</h2>
-                <div class="grid-2">
-                    <div>
-                        <h3 class="card-subtitle">Pool Solutions Leadership</h3>
-                        <p class="info-text">Solenis Pool Solutions is the only U.S. manufacturer with a complete chlorine portfolio (Cal Hypo, Dichlor, Trichlor), delivering unmatched product expertise, manufacturing excellence, and supply chain reliability to pool professionals nationwide.</p>
-                    </div>
-                    <div>
-                        <h3 class="card-subtitle">Backed by Global Scale</h3>
-                        <p class="info-text">As part of Solenis, a global leader serving 200,000+ customers across 130 countries from 70+ manufacturing and service facilities worldwide, we bring enterprise-level resources, consistent quality, and reliable supply to support your business growth.</p>
-                    </div>
-                </div>
+                <p class="info-text">
+                    <strong>Solenis Pool Solutions</strong> is the only U.S. manufacturer with a complete chlorine portfolio, from Cal Hypo to Trichlor. We're part of Solenis, a global leader serving 200,000+ customers across 130 countries from 70+ facilities worldwide.
+                </p>
+                <p class="info-text">
+                    Our parent company Solenis holds a <strong>top 5% EcoVadis sustainability rating</strong>, demonstrating our commitment to environmental responsibility. With nearly a century of water treatment expertise, we combine global resources with local, personalized support through our dedicated Territory Sales Managers.
+                </p>
             </div>
         </div>
         
         <!-- CAL HYPO TAB -->
         <div id="calhypo" class="tab-content">
             <div class="card">
-                <h2 class="card-title">Cal Hypo: The Clear Winner</h2>
-                <p class="info-text">When customers compare options, Cal Hypo's advantages become clear. While liquid bleach may appear cheaper upfront, its instability and low concentration make it more expensive over time. Trichlor and dichlor add cyanuric acid that reduces sanitizer effectiveness and requires costly water replacement.</p>
+                <h2 class="card-title">Cal Hypo vs. The Competition</h2>
+                <p class="info-text">Calcium Hypochlorite (Cal Hypo) delivers superior performance compared to Trichlor and Dichlor. See the difference:</p>
                 
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th class="highlight-header">Cal Hypo</th>
-                            <th>Liquid Bleach</th>
-                            <th>Trichlor</th>
-                            <th>Dichlor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Chlorine Strength</td>
-                            <td class="highlight-col">65-73%</td>
-                            <td>10-12%</td>
-                            <td>90%</td>
-                            <td>56-62%</td>
-                        </tr>
-                        <tr>
-                            <td>Stability</td>
-                            <td class="highlight-col">Excellent (long shelf life)</td>
-                            <td>Poor (degrades quickly)</td>
-                            <td>Good</td>
-                            <td>Good</td>
-                        </tr>
-                        <tr>
-                            <td>CYA Buildup</td>
-                            <td class="highlight-col">None</td>
-                            <td>None</td>
-                            <td>Yes (major issue)</td>
-                            <td>Yes (moderate issue)</td>
-                        </tr>
-                        <tr>
-                            <td>Cost Effectiveness</td>
-                            <td class="highlight-col">Excellent</td>
-                            <td>Poor (high volume needed)</td>
-                            <td>Good</td>
-                            <td>Moderate</td>
-                        </tr>
-                        <tr>
-                            <td>Shock Performance</td>
-                            <td class="highlight-col">Excellent</td>
-                            <td>Poor</td>
-                            <td>Moderate</td>
-                            <td>Moderate</td>
-                        </tr>
-                        <tr>
-                            <td>Storage</td>
-                            <td class="highlight-col">Easy (dry, compact)</td>
-                            <td>Difficult (liquid, corrosive)</td>
-                            <td>Easy</td>
-                            <td>Easy</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="highlight-box">
-                    <h3 class="highlight-title">Bottom Line</h3>
-                    <p class="highlight-text">Cal Hypo delivers superior performance without the long-term problems of CYA buildup or the inconvenience of liquid handling. It's the smart choice for dealers and pool owners who want reliable, cost-effective sanitization.</p>
+                <div style="overflow-x: auto;">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th class="highlight-col">Cal Hypo</th>
+                                <th>Trichlor</th>
+                                <th>Dichlor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Available Chlorine</strong></td>
+                                <td class="highlight-col">65-78%</td>
+                                <td>90%</td>
+                                <td>56-62%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>pH Impact</strong></td>
+                                <td class="highlight-col">Raises pH (ideal for acidic pools)</td>
+                                <td>Lowers pH (requires balancing)</td>
+                                <td>Neutral</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cyanuric Acid (CYA)</strong></td>
+                                <td class="highlight-col">None added (no chlorine lock)</td>
+                                <td>Adds CYA (builds up over time)</td>
+                                <td>Adds CYA (builds up over time)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Shelf Life</strong></td>
+                                <td class="highlight-col">3+ years (highly stable)</td>
+                                <td>1-2 years</td>
+                                <td>1-2 years</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sunlight Stability</strong></td>
+                                <td class="highlight-col">Excellent (no degradation)</td>
+                                <td>Good (with CYA)</td>
+                                <td>Good (with CYA)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cost Efficiency</strong></td>
+                                <td class="highlight-col">Lower cost per pound of chlorine</td>
+                                <td>Higher cost</td>
+                                <td>Higher cost</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             
@@ -565,28 +601,35 @@
                 <h2 class="card-title">The Cal Hypo Advantage</h2>
                 <div class="grid-2">
                     <div class="feature-item">
-                        <div class="feature-title">Superior Sanitization</div>
-                        <p class="feature-description">65-73% available chlorine delivers powerful disinfection and oxidation</p>
+                        <div class="feature-title">No Cyanuric Acid Buildup</div>
+                        <p class="feature-description">Prevents chlorine lock and eliminates the need for costly drain-and-refill cycles</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">No CYA Buildup</div>
-                        <p class="feature-description">Prevents water balance issues and costly drain/refill cycles</p>
+                        <div class="feature-title">Superior Shelf Life</div>
+                        <p class="feature-description">3+ year stability means less inventory waste and better margins for dealers</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Excellent Stability</div>
-                        <p class="feature-description">Long shelf life reduces waste and inventory costs</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-title">Easy Storage & Handling</div>
-                        <p class="feature-description">Dry, compact form is safer and more convenient than liquid alternatives</p>
+                        <div class="feature-title">Powerful Oxidation</div>
+                        <p class="feature-description">Quickly destroys contaminants and restores water clarity</p>
                     </div>
                     <div class="feature-item">
                         <div class="feature-title">Cost Effective</div>
-                        <p class="feature-description">High concentration means less product needed per treatment</p>
+                        <p class="feature-description">Lower cost per pound of available chlorine delivers better value</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">Versatile Application</div>
+                        <p class="feature-description">Works as daily sanitizer, shock treatment, or both</p>
                     </div>
                     <div class="feature-item">
                         <div class="feature-title">Domestic Manufacturing</div>
-                        <p class="feature-description">Only U.S. manufacturer ensures reliable supply and quality control</p>
+                        <p class="feature-description">Reliable supply chain with U.S.-based production</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 25px;">
+                    <div class="highlight-title">The Bottom Line</div>
+                    <div class="highlight-text">
+                        Cal Hypo offers dealers and pool owners a superior combination of performance, stability, and value. With Solenis as the only U.S. manufacturer, you get reliable supply, technical expertise, and a complete chlorine portfolio to serve every customer need.
                     </div>
                 </div>
             </div>
@@ -596,8 +639,9 @@
         <div id="clearfund" class="tab-content">
             <div class="card">
                 <h2 class="card-title">ClearFund Co-Op Program</h2>
-                <p class="info-text">Earn valuable accruals on qualifying purchases to invest in marketing, training, and business growth. The more you purchase, the more you earn.</p>
+                <p class="info-text">The ClearFund program rewards your partnership with Solenis by providing co-op dollars to invest in your business growth. Earn up to 7% accrual on annual purchases and use funds for marketing, training, trade shows, and more.</p>
                 
+                <h3 class="card-subtitle">Program Tiers</h3>
                 <div class="grid-3">
                     <div class="tier-card">
                         <div class="tier-name">Platinum</div>
@@ -655,41 +699,225 @@
             </div>
         </div>
         
-        <!-- PRODUCTS TAB -->
+        <!-- PRODUCTS TAB - UPDATED WITH EXPANDABLE SECTIONS -->
         <div id="products" class="tab-content">
             <div class="card">
-                <h2 class="card-title">Complete Pool Sanitization Portfolio</h2>
-                <p class="info-text">We offer industry-leading brands across both Dealer Direct and Branded Distribution channels, giving you the flexibility to serve every customer segment.</p>
+                <h2 class="card-title">Dealer Direct Product Portfolio</h2>
+                <p class="info-text">Click on any brand below to explore our complete product lineup. All products are available exclusively through authorized Solenis dealers.</p>
                 
-                <h3 class="card-subtitle">Dealer Direct Brands</h3>
                 <div class="product-grid">
-                    <div class="product-card">
-                        <div class="product-name">Poolife®</div>
-                        <p class="product-description">Premium pool care products including Cal Hypo, Dichlor, Trichlor, and complete water care solutions. The trusted choice for pool professionals.</p>
+                    <!-- Poolife -->
+                    <div class="product-card" onclick="toggleProduct('poolife')">
+                        <div class="product-header">
+                            <div class="product-name">Poolife®</div>
+                            <div class="product-tagline">Premium Pool Care Solutions</div>
+                        </div>
+                        <div class="product-toggle" id="poolife-toggle">
+                            ▼ View Products
+                        </div>
+                        <div class="product-details" id="poolife-details">
+                            <div class="product-content">
+                                <div class="product-category">
+                                    <div class="category-title">Sanitizers</div>
+                                    <ul class="product-list">
+                                        <li>NST Prime Tablets (Cal Hypo, no CYA)</li>
+                                        <li>MPT Extra 3" Chlorinating Tablets (Trichlor)</li>
+                                        <li>Active Cleaning Granules (Cal Hypo, 68%)</li>
+                                        <li>Instant Clear Cleaning Granules (Dichlor)</li>
+                                        <li>1" & 3" Cleaning Tablets (Trichlor)</li>
+                                        <li>Bromine Advance</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Shocks & Oxidizers</div>
+                                    <ul class="product-list">
+                                        <li>TurboShock (Cal Hypo, 78%)</li>
+                                        <li>NST Purify (MPS & Dichlor blend)</li>
+                                        <li>Rapid Shock (Cal Hypo, 68%)</li>
+                                        <li>Clean Shock (Dichlor)</li>
+                                        <li>Non-Chlorine Oxidizer (MPS)</li>
+                                        <li>Back to Blue Shock System</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Algaecides</div>
+                                    <ul class="product-list">
+                                        <li>Defend+ Algaecide (20% Poly Quat)</li>
+                                        <li>NST Algae Patrol</li>
+                                        <li>Super AlgaeBomb 60 (60% Poly Quat)</li>
+                                        <li>AlgaeKill Extreme (9.3% Copper)</li>
+                                        <li>Algaecide 90</li>
+                                        <li>AlgaePhos (Quat & Phosphate Remover)</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Specialties & Balancers</div>
+                                    <ul class="product-list">
+                                        <li>Gold Medal Clarifier</li>
+                                        <li>TurboBlu Clarifier</li>
+                                        <li>Endure Water Conditioner</li>
+                                        <li>Calcium Plus</li>
+                                        <li>pH Plus / pH Minus</li>
+                                        <li>Stabilizer & Conditioner</li>
+                                        <li>Enzyme for Pools</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-name">BAQUACIL®</div>
-                        <p class="product-description">Chlorine-free pool care system using biguanide technology. Gentle on skin and eyes, perfect for customers seeking alternatives.</p>
+                    
+                    <!-- BAQUACIL -->
+                    <div class="product-card" onclick="toggleProduct('baquacil')">
+                        <div class="product-header">
+                            <div class="product-name">BAQUACIL®</div>
+                            <div class="product-tagline">Chlorine-Free Pool Care</div>
+                        </div>
+                        <div class="product-toggle" id="baquacil-toggle">
+                            ▼ View Products
+                        </div>
+                        <div class="product-details" id="baquacil-details">
+                            <div class="product-content">
+                                <div class="product-category">
+                                    <div class="category-title">Core 3-Step CDX System</div>
+                                    <ul class="product-list">
+                                        <li>BAQUACIL Sanitizer & Algistat (Step 1 - Biguanide)</li>
+                                        <li>BAQUACIL Oxidizer (Step 2 - 27% H₂O₂)</li>
+                                        <li>BAQUACIL CDX (Step 3 - Maintains residual)</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Algaecides</div>
+                                    <ul class="product-list">
+                                        <li>AlgiDefense Algistat</li>
+                                        <li>Performance Algicide (60% Polyquat)</li>
+                                        <li>BAQUACIL Algicide (50% Quat)</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Support Products</div>
+                                    <ul class="product-list">
+                                        <li>Universal Filter Cleaner</li>
+                                        <li>Filter Aid and Flocculant</li>
+                                        <li>Metal Control</li>
+                                        <li>Line Clean</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Balance Products</div>
+                                    <ul class="product-list">
+                                        <li>Total Alkalinity Increaser</li>
+                                        <li>pH Increaser / pH Decreaser</li>
+                                        <li>Calcium Hardness Increaser</li>
+                                        <li>4-Way Test Strips</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-name">Sirona™</div>
-                        <p class="product-description">Innovative Simply™ sanitizers and spa care products. Modern solutions for today's pool and spa owners.</p>
+                    
+                    <!-- Sirona -->
+                    <div class="product-card" onclick="toggleProduct('sirona')">
+                        <div class="product-header">
+                            <div class="product-name">Sirona™</div>
+                            <div class="product-tagline">Elevating Spa Care</div>
+                        </div>
+                        <div class="product-toggle" id="sirona-toggle">
+                            ▼ View Products
+                        </div>
+                        <div class="product-details" id="sirona-details">
+                            <div class="product-content">
+                                <div class="product-category">
+                                    <div class="category-title">Shocks & Sanitizers</div>
+                                    <ul class="product-list">
+                                        <li>Brom Tabs (BCDMH)</li>
+                                        <li>Brominating Granular</li>
+                                        <li>Chlorinating Granules (Dichlor)</li>
+                                        <li>Sodium Bromide</li>
+                                        <li>Spa Minerals (Silver Chloride)</li>
+                                        <li>Enhance Bromide Salt Solution</li>
+                                        <li>Activate Granular (MPS)</li>
+                                        <li>Replenish (Dichlor shock)</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Balancers</div>
+                                    <ul class="product-list">
+                                        <li>Spa Up / Spa Down</li>
+                                        <li>pH Balance+</li>
+                                        <li>Calcium Booster</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Specialties & Clarifiers</div>
+                                    <ul class="product-list">
+                                        <li>Phosphate Remover+ (3-in-1)</li>
+                                        <li>Prevent (Metal control)</li>
+                                        <li>Defend (Scale prevention)</li>
+                                        <li>Clarifier</li>
+                                        <li>Foam Out</li>
+                                        <li>Natural Clear Enzyme Clarifier</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Cleaners & Accessories</div>
+                                    <ul class="product-list">
+                                        <li>Cover Care</li>
+                                        <li>Jet Blaster</li>
+                                        <li>Filter Cleaner</li>
+                                        <li>Spray & Rinse Filter Cleaner</li>
+                                        <li>Quick Gloss</li>
+                                        <li>Test Strips</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Sirona Simply (Chlorine/Bromine-Free)</div>
+                                    <ul class="product-list">
+                                        <li>Simply Sanitizer (Biguanide)</li>
+                                        <li>Simply Oxidizer (H₂O₂)</li>
+                                        <li>Simply Waterline Control</li>
+                                        <li>Simply Metal Control</li>
+                                        <li>Simply Test Strips</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-card">
-                        <div class="product-name">PristineBlue®</div>
-                        <p class="product-description">Copper-based algaecide and clarifier system. Non-chlorine alternative for crystal clear water.</p>
-                    </div>
-                </div>
-                
-                <h3 class="card-subtitle">Branded Distribution</h3>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <div class="product-name">GLB®</div>
-                        <p class="product-description">Comprehensive pool care line including sanitizers, balancers, and specialty chemicals. Trusted by retailers nationwide.</p>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-name">Leisure Time®</div>
-                        <p class="product-description">Complete spa care system with simple, effective solutions. The #1 choice for hot tub and spa maintenance.</p>
+                    
+                    <!-- PristineBlue -->
+                    <div class="product-card" onclick="toggleProduct('pristineblue')">
+                        <div class="product-header">
+                            <div class="product-name">PristineBlue®</div>
+                            <div class="product-tagline">Complete Pool & Spa System</div>
+                        </div>
+                        <div class="product-toggle" id="pristineblue-toggle">
+                            ▼ View Products
+                        </div>
+                        <div class="product-details" id="pristineblue-details">
+                            <div class="product-content">
+                                <div class="product-category">
+                                    <div class="category-title">The System</div>
+                                    <ul class="product-list">
+                                        <li>PristineBlue (Algaecide/Bactericide)</li>
+                                        <li>PristineCheck (Water prep)</li>
+                                        <li>PristineClean (Scale & metal inhibitor)</li>
+                                        <li>PristineClear (Clarifier)</li>
+                                        <li>PristineExtra (99% Dichlor shock)</li>
+                                        <li>PristinePower (MPS oxidizer)</li>
+                                    </ul>
+                                </div>
+                                <div class="product-category">
+                                    <div class="category-title">Kits & Testing</div>
+                                    <ul class="product-list">
+                                        <li>PristineBlue Start-Up Kit (pools up to 16K gal)</li>
+                                        <li>PristineBlue Spa Kit</li>
+                                        <li>PristineBlue Mini Test Kit</li>
+                                    </ul>
+                                </div>
+                                <p style="font-size: 13px; color: #5A6C75; margin-top: 15px; font-style: italic;">
+                                    Note: Use Poolife test strips for alkalinity, pH, hardness testing and Poolife balancers for water adjustments.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -748,25 +976,20 @@
                 <div class="grid-2">
                     <div class="feature-item">
                         <div class="feature-title">Personalized Support</div>
-                        <p class="feature-description">Regular visits and consultations tailored to your business needs</p>
+                        <p class="feature-description">Direct access to an expert who knows your business and your market</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Customized Training</div>
-                        <p class="feature-description">On-site staff training and product education programs</p>
+                        <div class="feature-title">Technical Expertise</div>
+                        <p class="feature-description">Rapid response to product questions and water chemistry challenges</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Rapid Response</div>
-                        <p class="feature-description">Quick answers to technical questions and business challenges</p>
+                        <div class="feature-title">Training & Education</div>
+                        <p class="feature-description">On-site training sessions and product knowledge workshops</p>
                     </div>
                     <div class="feature-item">
-                        <div class="feature-title">Long-Term Partnership</div>
-                        <p class="feature-description">Invested in your success, not just quarterly sales targets</p>
+                        <div class="feature-title">Business Growth</div>
+                        <p class="feature-description">Strategic guidance on inventory, merchandising, and market opportunities</p>
                     </div>
-                </div>
-                
-                <div class="highlight-box" style="margin-top: 20px;">
-                    <h3 class="highlight-title">Contact Your TSM</h3>
-                    <p class="highlight-text">Don't have your Territory Sales Manager's contact information? Call Customer Service at 1-866-765-3647 and we'll connect you immediately.</p>
                 </div>
             </div>
         </div>
@@ -774,20 +997,20 @@
     </div>
     
     <script>
-        // Tab Navigation
-        function showTab(tabName) {
+        // Tab Switching
+        function switchTab(tabName) {
             // Hide all tabs
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
             
-            // Remove active class from all buttons
+            // Remove active from all buttons
             const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => button.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
             
             // Show selected tab
             document.getElementById(tabName).classList.add('active');
             
-            // Add active class to clicked button
+            // Highlight selected button
             event.target.classList.add('active');
             
             // Scroll to top
@@ -806,39 +1029,50 @@
                 return;
             }
             
-            let accrualRate = 0;
+            let percentage = 0;
             let tier = '';
             
             if (amount >= 300000) {
-                accrualRate = 0.07;
-                tier = 'Platinum Tier';
+                percentage = 0.07;
+                tier = 'Platinum Tier (7%)';
             } else if (amount >= 125000) {
-                accrualRate = 0.07;
-                tier = 'Gold Tier';
+                percentage = 0.07;
+                tier = 'Gold Tier (7%)';
             } else if (amount >= 65000) {
-                accrualRate = 0.05;
-                tier = 'Silver Tier';
+                percentage = 0.05;
+                tier = 'Silver Tier (5%)';
             } else {
-                accrualRate = 0.03;
-                tier = 'Standard Tier';
+                percentage = 0.05;
+                tier = 'Silver Tier (5%) - Minimum $65K required';
             }
             
-            const accrual = amount * accrualRate;
+            const accrual = amount * percentage;
             
-            accrualDiv.textContent = '$' + accrual.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-            tierDiv.textContent = tier + ' (' + (accrualRate * 100) + '% accrual)';
+            accrualDiv.textContent = '$' + accrual.toLocaleString('en-US', {maximumFractionDigits: 0});
+            tierDiv.textContent = tier;
             resultDiv.style.display = 'block';
         }
         
-        // Prevent zoom on double-tap (iOS)
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function (event) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
+        // Product Toggle Function
+        function toggleProduct(brandId) {
+            const details = document.getElementById(brandId + '-details');
+            const toggle = document.getElementById(brandId + '-toggle');
+            
+            if (details.classList.contains('expanded')) {
+                details.classList.remove('expanded');
+                toggle.textContent = '▼ View Products';
+            } else {
+                // Close all other products first
+                const allDetails = document.querySelectorAll('.product-details');
+                const allToggles = document.querySelectorAll('.product-toggle');
+                allDetails.forEach(d => d.classList.remove('expanded'));
+                allToggles.forEach(t => t.textContent = '▼ View Products');
+                
+                // Open clicked product
+                details.classList.add('expanded');
+                toggle.textContent = '▲ Hide Products';
             }
-            lastTouchEnd = now;
-        }, false);
+        }
     </script>
 </body>
 </html>
