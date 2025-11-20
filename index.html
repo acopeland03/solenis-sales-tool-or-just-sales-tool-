@@ -393,6 +393,14 @@
             font-size: 14px;
             color: #5A6C75;
             position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .product-list li:hover {
+            color: #0D3B47;
+            padding-left: 25px;
+            font-weight: 600;
         }
         
         .product-list li:before {
@@ -403,6 +411,149 @@
             left: 5px;
         }
         
+        /* PRODUCT DETAIL MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .product-modal {
+            background: #FFFFFF;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #0D3B47 0%, #1A4D5A 100%);
+            padding: 30px;
+            color: #FFFFFF;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #FFFFFF;
+            font-size: 28px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .modal-product-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .modal-product-tagline {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .modal-active-ingredient {
+            display: inline-block;
+            background: #1DE9B6;
+            color: #0D3B47;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0D3B47;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #1DE9B6;
+        }
+        
+        .modal-description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #5A6C75;
+            margin-bottom: 20px;
+        }
+        
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .modal-item {
+            background: #F8FEFF;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 3px solid #1DE9B6;
+            font-size: 14px;
+            color: #5A6C75;
+        }
+        
+        .modal-sku-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .modal-sku-table th {
+            background: #F8FEFF;
+            padding: 10px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0D3B47;
+            border-bottom: 2px solid #1DE9B6;
+        }
+        
+        .modal-sku-table td {
+            padding: 10px;
+            font-size: 13px;
+            color: #5A6C75;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        
+
         /* PRODUCT ASSISTANT STYLES */
         .assistant-search {
             background: linear-gradient(135deg, #0D3B47 0%, #1A4D5A 100%);
@@ -607,10 +758,41 @@
             .comparison-table td {
                 padding: 10px 8px;
             }
+            
+            .product-modal {
+                max-height: 95vh;
+            }
+            
+            .modal-header {
+                padding: 20px;
+            }
+            
+            .modal-product-name {
+                font-size: 22px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="productModal" onclick="closeModal(event)">
+        <div class="product-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <div class="modal-product-name" id="modalProductName"></div>
+                <div class="modal-product-tagline" id="modalProductTagline"></div>
+                <div class="modal-active-ingredient" id="modalActiveIngredient"></div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be dynamically inserted -->
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <div class="header">
         <div class="header-title">The Solenis Advantage</div>
@@ -844,7 +1026,7 @@
         <div id="products" class="tab-content">
             <div class="card">
                 <h2 class="card-title">Dealer Direct Product Portfolio</h2>
-                <p class="info-text">Click on any brand below to explore our complete product lineup. All products are available exclusively through authorized Solenis dealers.</p>
+                <p class="info-text">Click on any brand below to explore our complete product lineup. Click on individual products to see detailed specifications, SKUs, and package sizes.</p>
                 
                 <div class="product-grid">
                     <!-- Poolife -->
@@ -861,9 +1043,9 @@
                                 <div class="product-category">
                                     <div class="category-title">Sanitizers</div>
                                     <ul class="product-list">
-                                        <li>NST Prime Tablets (Cal Hypo, no CYA)</li>
-                                        <li>MPT Extra 3" Chlorinating Tablets (Trichlor)</li>
-                                        <li>Active Cleaning Granules (Cal Hypo, 68%)</li>
+                                        <li onclick="showProductDetail('poolife-nst-prime', event)">NST Prime Tablets (Cal Hypo, no CYA)</li>
+                                        <li onclick="showProductDetail('poolife-mpt-extra', event)">MPT Extra 3" Chlorinating Tablets (Trichlor)</li>
+                                        <li onclick="showProductDetail('poolife-active-cleaning', event)">Active Cleaning Granules (Cal Hypo, 68%)</li>
                                         <li>Instant Clear Cleaning Granules (Dichlor)</li>
                                         <li>1" & 3" Cleaning Tablets (Trichlor)</li>
                                         <li>Bromine Advance</li>
@@ -872,21 +1054,21 @@
                                 <div class="product-category">
                                     <div class="category-title">Shocks & Oxidizers</div>
                                     <ul class="product-list">
-                                        <li>TurboShock (Cal Hypo, 78%)</li>
-                                        <li>NST Purify (MPS & Dichlor blend)</li>
-                                        <li>Rapid Shock (Cal Hypo, 68%)</li>
+                                        <li onclick="showProductDetail('poolife-turboshock', event)">TurboShock (Cal Hypo, 78%)</li>
+                                        <li onclick="showProductDetail('poolife-nst-purify', event)">NST Purify (MPS & Dichlor blend)</li>
+                                        <li onclick="showProductDetail('poolife-rapid-shock', event)">Rapid Shock (Cal Hypo, 68%)</li>
                                         <li>Clean Shock (Dichlor)</li>
-                                        <li>Non-Chlorine Oxidizer (MPS)</li>
-                                        <li>Back to Blue Shock System</li>
+                                        <li onclick="showProductDetail('poolife-non-chlorine', event)">Non-Chlorine Oxidizer (MPS)</li>
+                                        <li onclick="showProductDetail('poolife-back-to-blue', event)">Back to Blue Shock System</li>
                                     </ul>
                                 </div>
                                 <div class="product-category">
                                     <div class="category-title">Algaecides</div>
                                     <ul class="product-list">
-                                        <li>Defend+ Algaecide (20% Poly Quat)</li>
-                                        <li>NST Algae Patrol</li>
-                                        <li>Super AlgaeBomb 60 (60% Poly Quat)</li>
-                                        <li>AlgaeKill Extreme (9.3% Copper)</li>
+                                        <li onclick="showProductDetail('poolife-defend-plus', event)">Defend+ Algaecide (20% Poly Quat)</li>
+                                        <li onclick="showProductDetail('poolife-nst-algae-patrol', event)">NST Algae Patrol</li>
+                                        <li onclick="showProductDetail('poolife-super-algaebomb', event)">Super AlgaeBomb 60 (60% Poly Quat)</li>
+                                        <li onclick="showProductDetail('poolife-algaekill-extreme', event)">AlgaeKill Extreme (9.3% Copper)</li>
                                         <li>Algaecide 90</li>
                                         <li>AlgaePhos (Quat & Phosphate Remover)</li>
                                     </ul>
@@ -894,13 +1076,14 @@
                                 <div class="product-category">
                                     <div class="category-title">Specialties & Balancers</div>
                                     <ul class="product-list">
-                                        <li>Gold Medal Clarifier</li>
-                                        <li>TurboBlu Clarifier</li>
-                                        <li>Endure Water Conditioner</li>
-                                        <li>Calcium Plus</li>
-                                        <li>pH Plus / pH Minus</li>
+                                        <li onclick="showProductDetail('poolife-gold-medal-clarifier', event)">Gold Medal Clarifier</li>
+                                        <li onclick="showProductDetail('poolife-turboblu-clarifier', event)">TurboBlu Clarifier</li>
+                                        <li onclick="showProductDetail('poolife-endure', event)">Endure Water Conditioner</li>
+                                        <li onclick="showProductDetail('poolife-calcium-plus', event)">Calcium Plus</li>
+                                        <li onclick="showProductDetail('poolife-ph-plus', event)">pH Plus</li>
+                                        <li onclick="showProductDetail('poolife-ph-minus', event)">pH Minus</li>
                                         <li>Stabilizer & Conditioner</li>
-                                        <li>Enzyme for Pools</li>
+                                        <li onclick="showProductDetail('poolife-enzyme', event)">Enzyme for Pools</li>
                                     </ul>
                                 </div>
                             </div>
@@ -921,16 +1104,16 @@
                                 <div class="product-category">
                                     <div class="category-title">Core 3-Step CDX System</div>
                                     <ul class="product-list">
-                                        <li>BAQUACIL Sanitizer & Algistat (Step 1 - Biguanide)</li>
-                                        <li>BAQUACIL Oxidizer (Step 2 - 27% H₂O₂)</li>
-                                        <li>BAQUACIL CDX (Step 3 - Maintains residual)</li>
+                                        <li onclick="showProductDetail('baquacil-sanitizer', event)">BAQUACIL Sanitizer & Algistat (Step 1 - Biguanide)</li>
+                                        <li onclick="showProductDetail('baquacil-oxidizer', event)">BAQUACIL Oxidizer (Step 2 - 27% H₂O₂)</li>
+                                        <li onclick="showProductDetail('baquacil-cdx', event)">BAQUACIL CDX (Step 3 - Maintains residual)</li>
                                     </ul>
                                 </div>
                                 <div class="product-category">
                                     <div class="category-title">Algaecides</div>
                                     <ul class="product-list">
                                         <li>AlgiDefense Algistat</li>
-                                        <li>Performance Algicide (60% Polyquat)</li>
+                                        <li onclick="showProductDetail('baquacil-performance-algicide', event)">Performance Algicide (60% Polyquat)</li>
                                         <li>BAQUACIL Algicide (50% Quat)</li>
                                     </ul>
                                 </div>
@@ -970,14 +1153,14 @@
                                 <div class="product-category">
                                     <div class="category-title">Shocks & Sanitizers</div>
                                     <ul class="product-list">
-                                        <li>Brom Tabs (BCDMH)</li>
+                                        <li onclick="showProductDetail('sirona-brom-tabs', event)">Brom Tabs (BCDMH)</li>
                                         <li>Brominating Granular</li>
                                         <li>Chlorinating Granules (Dichlor)</li>
                                         <li>Sodium Bromide</li>
                                         <li>Spa Minerals (Silver Chloride)</li>
                                         <li>Enhance Bromide Salt Solution</li>
-                                        <li>Activate Granular (MPS)</li>
-                                        <li>Replenish (Dichlor shock)</li>
+                                        <li onclick="showProductDetail('sirona-activate', event)">Activate Granular (MPS)</li>
+                                        <li onclick="showProductDetail('sirona-replenish', event)">Replenish (Dichlor shock)</li>
                                     </ul>
                                 </div>
                                 <div class="product-category">
@@ -991,7 +1174,7 @@
                                 <div class="product-category">
                                     <div class="category-title">Specialties & Clarifiers</div>
                                     <ul class="product-list">
-                                        <li>Phosphate Remover+ (3-in-1)</li>
+                                        <li onclick="showProductDetail('sirona-phosphate-remover', event)">Phosphate Remover+ (3-in-1)</li>
                                         <li>Prevent (Metal control)</li>
                                         <li>Defend (Scale prevention)</li>
                                         <li>Clarifier</li>
@@ -1013,8 +1196,8 @@
                                 <div class="product-category">
                                     <div class="category-title">Sirona Simply (Chlorine/Bromine-Free)</div>
                                     <ul class="product-list">
-                                        <li>Simply Sanitizer (Biguanide)</li>
-                                        <li>Simply Oxidizer (H₂O₂)</li>
+                                        <li onclick="showProductDetail('sirona-simply-sanitizer', event)">Simply Sanitizer (Biguanide)</li>
+                                        <li onclick="showProductDetail('sirona-simply-oxidizer', event)">Simply Oxidizer (H₂O₂)</li>
                                         <li>Simply Waterline Control</li>
                                         <li>Simply Metal Control</li>
                                         <li>Simply Test Strips</li>
@@ -1038,20 +1221,20 @@
                                 <div class="product-category">
                                     <div class="category-title">The System</div>
                                     <ul class="product-list">
-                                        <li>PristineBlue (Algaecide/Bactericide)</li>
-                                        <li>PristineCheck (Water prep)</li>
-                                        <li>PristineClean (Scale & metal inhibitor)</li>
-                                        <li>PristineClear (Clarifier)</li>
-                                        <li>PristineExtra (99% Dichlor shock)</li>
-                                        <li>PristinePower (MPS oxidizer)</li>
+                                        <li onclick="showProductDetail('pristineblue-main', event)">PristineBlue (Algaecide/Bactericide)</li>
+                                        <li onclick="showProductDetail('pristineblue-check', event)">PristineCheck (Water prep)</li>
+                                        <li onclick="showProductDetail('pristineblue-clean', event)">PristineClean (Scale & metal inhibitor)</li>
+                                        <li onclick="showProductDetail('pristineblue-clear', event)">PristineClear (Clarifier)</li>
+                                        <li onclick="showProductDetail('pristineblue-extra', event)">PristineExtra (99% Dichlor shock)</li>
+                                        <li onclick="showProductDetail('pristineblue-power', event)">PristinePower (MPS oxidizer)</li>
                                     </ul>
                                 </div>
                                 <div class="product-category">
                                     <div class="category-title">Kits & Testing</div>
                                     <ul class="product-list">
-                                        <li>PristineBlue Start-Up Kit (pools up to 16K gal)</li>
-                                        <li>PristineBlue Spa Kit</li>
-                                        <li>PristineBlue Mini Test Kit</li>
+                                        <li onclick="showProductDetail('pristineblue-pool-kit', event)">PristineBlue Start-Up Kit (pools up to 16K gal)</li>
+                                        <li onclick="showProductDetail('pristineblue-spa-kit', event)">PristineBlue Spa Kit</li>
+                                        <li onclick="showProductDetail('pristineblue-test-kit', event)">PristineBlue Mini Test Kit</li>
                                     </ul>
                                 </div>
                                 <p style="font-size: 13px; color: #5A6C75; margin-top: 15px; font-style: italic;">
@@ -1086,7 +1269,7 @@
             </div>
         </div>
         
-        <!-- PRODUCT ASSISTANT TAB - NEW! -->
+        <!-- PRODUCT ASSISTANT TAB -->
         <div id="assistant" class="tab-content">
             <div class="card">
                 <h2 class="card-title">🔍 Product Recommendation Assistant</h2>
@@ -1170,6 +1353,658 @@
     </div>
     
     <script>
+        // Product Database
+// Complete Product Database - Top 50-60 Products with Full Details
+
+const productDatabase = {
+    // ========== POOLIFE PRODUCTS ==========
+    
+    'poolife-turboshock': {
+        name: 'Poolife TurboShock',
+        brand: 'Poolife',
+        category: 'Shocks & Oxidizers',
+        tagline: 'The strongest Cal Hypo shock in the industry',
+        activeIngredient: '78% Calcium Hypochlorite',
+        description: 'Dissolves quickly and completely to combat algae and bacteria and keep pool water sparkling clean and clear. The strongest Cal Hypo shock product in the industry!',
+        useCases: ['Weekly shock treatment', 'Algae elimination', 'After heavy pool use', 'Storm cleanup', 'Part of MPT Extra System Step 2'],
+        benefits: ['Fastest-acting shock', 'No CYA added', 'Restores water clarity', 'Kills bacteria and algae'],
+        skus: [
+            { sku: '22405', size: '2x12x1 lb', cases: 48 },
+            { sku: '22403', size: '5 lb', cases: 36 },
+            { sku: '22402', size: '17 lb', cases: 56 },
+            { sku: '62082', size: '25 lb', cases: 36 },
+            { sku: '22406', size: '55 lb', cases: 18 },
+            { sku: '22404', size: '65 lb', cases: 16 }
+        ]
+    },
+    
+    'poolife-nst-prime': {
+        name: 'Poolife NST Prime Tablets',
+        brand: 'Poolife',
+        category: 'Sanitizers',
+        tagline: 'Cal Hypo tablets with NO cyanuric acid',
+        activeIngredient: 'Calcium Hypochlorite (no CYA)',
+        description: 'Utilizes proprietary slow-dissolving Cal Hypo tablet technology to sanitize pool water without adding any Cyanuric Acid. Extended release, non-stabilized tablets last for days. Compatible with chlorine, salt chlorine generators, ozone and mineral systems.',
+        useCases: ['Daily sanitization', 'Preventing chlorine lock', 'Use in floaters, feeders, or skimmers', 'Salt pool supplementation', 'Part of NST Prime System Step 1'],
+        benefits: ['No CYA buildup', 'Prevents chlorine lock', 'Long-lasting tablets', 'Compatible with all systems'],
+        skus: [
+            { sku: '22427', size: '4.5 lb', cases: 27 },
+            { sku: '22424', size: '9 lb', cases: 40 },
+            { sku: '22425', size: '20.2 lb', cases: 56 },
+            { sku: '22426', size: '39.4 lb', cases: 24 }
+        ]
+    },
+    
+    'poolife-mpt-extra': {
+        name: 'Poolife MPT Extra 3" Chlorinating Tablets',
+        brand: 'Poolife',
+        category: 'Sanitizers',
+        tagline: 'Sanitize and clarify pool water',
+        activeIngredient: 'Trichlor',
+        description: 'Multi-purpose trichlor tablets that sanitize and clarify pool water. Part of the MPT Extra 3-step system for complete pool care.',
+        useCases: ['Daily sanitization', 'Continuous chlorination', 'Use in floaters or feeders', 'Part of MPT Extra System Step 1'],
+        benefits: ['Multi-purpose formula', 'Slow-dissolving', 'Convenient tablets', 'Proven performance'],
+        skus: [
+            { sku: '42120', size: '5 lb', cases: 36 },
+            { sku: '42121', size: '25 lb', cases: 36 },
+            { sku: '42122', size: '50 lb', cases: 18 }
+        ]
+    },
+    
+    'poolife-active-cleaning': {
+        name: 'Poolife Active Cleaning Granules',
+        brand: 'Poolife',
+        category: 'Sanitizers',
+        tagline: 'Daily Cal Hypo sanitizer',
+        activeIngredient: '68% Calcium Hypochlorite',
+        description: 'Fast-dissolving Cal Hypo granules for daily sanitization without adding cyanuric acid. Ideal for maintaining proper chlorine levels.',
+        useCases: ['Daily sanitization', 'Chlorine boost', 'No CYA addition', 'Quick-dissolving'],
+        benefits: ['No CYA added', 'Fast-acting', 'Versatile application', 'Reliable sanitization'],
+        skus: []
+    },
+    
+    'poolife-nst-purify': {
+        name: 'Poolife NST Purify',
+        brand: 'Poolife',
+        category: 'Shocks & Oxidizers',
+        tagline: 'Oxygen-based oxidizer with chlorinating agent',
+        activeIngredient: 'Potassium Monopersulfate & Dichlor',
+        description: 'Unique oxygen-based oxidizer combined with chlorinating agent. Part of the NST Prime System for complete pool care.',
+        useCases: ['Weekly oxidation', 'Contaminant removal', 'Water clarity', 'Part of NST Prime System Step 2'],
+        benefits: ['Dual-action formula', 'Oxidizes and sanitizes', 'No CYA with NST system', 'Crystal clear water'],
+        skus: [
+            { sku: '62011', size: '12 x 1 lb', cases: 12 }
+        ]
+    },
+    
+    'poolife-rapid-shock': {
+        name: 'Poolife Rapid Shock',
+        brand: 'Poolife',
+        category: 'Shocks & Oxidizers',
+        tagline: 'Quick chlorine boost',
+        activeIngredient: '68% Calcium Hypochlorite',
+        description: 'Fast-acting Cal Hypo shock for weekly maintenance and quick chlorine boost. Reliable performance at an excellent value.',
+        useCases: ['Weekly maintenance', 'Chlorine boost', 'Light contamination', 'Regular shocking'],
+        benefits: ['Fast-acting', 'No CYA added', 'Cost-effective', 'Reliable performance'],
+        skus: [
+            { sku: '22232', size: '2x12x1 lb', cases: 48 },
+            { sku: '22212', size: '5 lb', cases: 36 },
+            { sku: '22250', size: '1 lb', cases: 24 }
+        ]
+    },
+    
+    'poolife-non-chlorine': {
+        name: 'Poolife Non-Chlorine Oxidizer',
+        brand: 'Poolife',
+        category: 'Shocks & Oxidizers',
+        tagline: 'Swim in 15 minutes',
+        activeIngredient: 'Potassium Monopersulfate (MPS)',
+        description: 'Destroys organic contaminants without adding chlorine. Swim shortly after application. Ideal for routine maintenance.',
+        useCases: ['Routine oxidation', 'After heavy use', 'Quick swim needs', 'No chlorine addition'],
+        benefits: ['Swim in 15 minutes', 'No chlorine added', 'Effective oxidizer', 'Convenient'],
+        skus: [
+            { sku: '22102', size: '2x12x1 lb', cases: 48 },
+            { sku: '22122', size: '50 lb', cases: 24 }
+        ]
+    },
+    
+    'poolife-back-to-blue': {
+        name: 'Poolife Back to Blue Shock System',
+        brand: 'Poolife',
+        category: 'Shocks & Oxidizers',
+        tagline: 'Green to blue in 24 hours',
+        activeIngredient: 'Two-part shock system',
+        description: 'Revolutionary two-part system turns green pools sparkling blue in just 24 hours. Simple and effective solution for algae-infested pools.',
+        useCases: ['Severe algae blooms', 'Green pool recovery', 'Fast turnaround', 'Emergency treatment'],
+        benefits: ['Works in 24 hours', 'Two-part system', 'Proven results', 'Easy to use'],
+        skus: [
+            { sku: '92106', size: 'Kit', cases: 6 }
+        ]
+    },
+    
+    'poolife-defend-plus': {
+        name: 'Poolife Defend+ Algaecide',
+        brand: 'Poolife',
+        category: 'Algaecides',
+        tagline: 'Multi-functional algaecide and clarifier',
+        activeIngredient: '20% Poly Quat & Clarifier',
+        description: 'Unique, multi-functional, non-foaming algaecide that treats and prevents green, black and mustard algae while clarifying pool water. Can be used for prevention and treatment.',
+        useCases: ['Algae prevention', 'Algae treatment', 'Water clarification', 'Part of MPT Extra System Step 3'],
+        benefits: ['Prevents multiple algae types', 'Clarifies water', 'Non-foaming formula', 'Long-lasting protection'],
+        skus: [
+            { sku: '62076', size: '1 qt', cases: 56 }
+        ]
+    },
+    
+    'poolife-nst-algae-patrol': {
+        name: 'Poolife NST Algae Patrol',
+        brand: 'Poolife',
+        category: 'Algaecides',
+        tagline: 'Algae prevention for NST system',
+        activeIngredient: 'Algaecide',
+        description: 'Specially formulated algaecide for the NST Prime System. Prevents algae growth and maintains crystal clear water.',
+        useCases: ['Algae prevention', 'NST system maintenance', 'Weekly treatment', 'Part of NST Prime System Step 3'],
+        benefits: ['NST system compatible', 'Prevents algae', 'Easy to use', 'Long-lasting'],
+        skus: [
+            { sku: '62012', size: '1 qt', cases: 42 }
+        ]
+    },
+    
+    'poolife-super-algaebomb': {
+        name: 'Poolife Super AlgaeBomb 60',
+        brand: 'Poolife',
+        category: 'Algaecides',
+        tagline: 'Heavy-duty 60% Poly Quat algaecide',
+        activeIngredient: '60% Poly Quat',
+        description: 'Non-foaming algaecide that treats and prevents algae growth in swimming pools, spas, whirlpools, hot tubs, decorative fountains and synthetically-lined ponds. Ideal for winterizing pools.',
+        useCases: ['Severe algae blooms', 'Winterizing pools', 'Stubborn algae', 'Long-term prevention'],
+        benefits: ['Highest concentration', 'Non-foaming', 'Treats all algae types', 'Perfect for winterizing'],
+        skus: [
+            { sku: '61110', size: '1 qt', cases: 56 }
+        ]
+    },
+    
+    'poolife-algaekill-extreme': {
+        name: 'Poolife AlgaeKill Extreme',
+        brand: 'Poolife',
+        category: 'Algaecides',
+        tagline: 'Strongest copper algaecide on the market',
+        activeIngredient: '9.3% Copper',
+        description: 'The strongest copper algaecide on the market controls and prevents regrowth of algae. Treated pool water can be used immediately — no waiting to swim!',
+        useCases: ['Severe algae infestations', 'Resistant algae strains', 'Black algae', 'Immediate swim needs'],
+        benefits: ['Strongest copper formula', 'Swim immediately after treatment', 'Controls resistant algae', 'Fast-acting'],
+        skus: [
+            { sku: '62071', size: '1 qt', cases: 56 }
+        ]
+    },
+    
+    'poolife-gold-medal-clarifier': {
+        name: 'Poolife Gold Medal Clarifier',
+        brand: 'Poolife',
+        category: 'Specialties',
+        tagline: 'Color-changing clarifier technology',
+        activeIngredient: 'Clarifier',
+        description: 'The strongest clarifier in Poolife clears and brightens cloudy pool water and improves filter removal of dirt and other organic contaminants. Unique color-changing technology turns from gold to blue to indicate it\'s working.',
+        useCases: ['Cloudy water', 'After shocking', 'Improving filtration', 'Water polishing'],
+        benefits: ['Strongest Poolife clarifier', 'Visual confirmation (color change)', 'Improves filter efficiency', 'Works with all sanitizers'],
+        skus: [
+            { sku: '62018', size: '1 qt', cases: 56 }
+        ]
+    },
+    
+    'poolife-turboblu-clarifier': {
+        name: 'Poolife TurboBlu Clarifier',
+        brand: 'Poolife',
+        category: 'Specialties',
+        tagline: 'Fast-acting concentrated clarifier',
+        activeIngredient: 'Concentrated Clarifier',
+        description: 'Concentrated clarifier formula clears cloudy pool water fast. Regular use reduces buildup of fine particles so that the sanitizer and/or algaecide are free to keep pool water brilliantly clear and sparkling.',
+        useCases: ['Fast water clearing', 'Regular maintenance', 'Fine particle removal', 'Water brilliance'],
+        benefits: ['Fast-acting formula', 'Concentrated for efficiency', 'Reduces particle buildup', 'Maintains water brilliance'],
+        skus: [
+            { sku: '62064', size: '1 qt', cases: 42 }
+        ]
+    },
+    
+    'poolife-endure': {
+        name: 'Poolife Endure Water Conditioner',
+        brand: 'Poolife',
+        category: 'Specialties',
+        tagline: 'Multi-functional water conditioning',
+        activeIngredient: 'Metal Sequestrant & Clarifier',
+        description: 'Multi-functional granular product that conditions, clarifies and clears pool water and gives it a softer, gentler feel. Compatible with all sanitizing systems.',
+        useCases: ['Metal stain prevention', 'Water softening', 'Clarification', 'Scale prevention'],
+        benefits: ['Prevents metal stains', 'Softer water feel', 'Multi-functional', 'Works with all systems'],
+        skus: [
+            { sku: '62053', size: '10 lb', cases: 20 },
+            { sku: '62054', size: '45 lb', cases: 24 },
+            { sku: '62051', size: '20 lb', cases: 48 }
+        ]
+    },
+    
+    'poolife-enzyme': {
+        name: 'Poolife Enzyme for Pools',
+        brand: 'Poolife',
+        category: 'Specialties',
+        tagline: 'Removes oils and organic buildup',
+        activeIngredient: 'Enzyme Formula',
+        description: 'Removes unsightly scum lines and protects filters from oily build-up and clogging. Compatible with any type of pool sanitizer.',
+        useCases: ['Scum line removal', 'Filter protection', 'Oil breakdown', 'Organic contaminant removal'],
+        benefits: ['Removes oily buildup', 'Protects filters', 'Compatible with all sanitizers', 'Prevents clogging'],
+        skus: [
+            { sku: '62063', size: '64 oz', cases: 44 }
+        ]
+    },
+    
+    'poolife-calcium-plus': {
+        name: 'Poolife Calcium Plus',
+        brand: 'Poolife',
+        category: 'Balancers',
+        tagline: 'Raises calcium hardness',
+        activeIngredient: 'Calcium Chloride',
+        description: 'Raises the calcium hardness of swimming pool water to prevent surface damage and protect equipment.',
+        useCases: ['Low calcium hardness', 'Preventing etching', 'Protecting plaster', 'Water balance'],
+        benefits: ['Prevents surface damage', 'Protects equipment', 'Improves water balance', 'Multiple sizes available'],
+        skus: [
+            { sku: '62156', size: '8 lb', cases: 50 },
+            { sku: '62119', size: '25 lb', cases: 36 },
+            { sku: '62133', size: '20 lb', cases: 96 }
+        ]
+    },
+    
+    'poolife-ph-plus': {
+        name: 'Poolife pH Plus',
+        brand: 'Poolife',
+        category: 'Balancers',
+        tagline: 'Raises pH levels',
+        activeIngredient: 'Sodium Carbonate',
+        description: 'Raises the pH of swimming pool water for optimal water balance and swimmer comfort.',
+        useCases: ['Low pH correction', 'Water balance', 'Protecting equipment', 'Swimmer comfort'],
+        benefits: ['Easy pH adjustment', 'Protects equipment', 'Improves sanitizer efficiency', 'Swimmer comfort'],
+        skus: [
+            { sku: '62116', size: '5 lb', cases: 50 }
+        ]
+    },
+    
+    'poolife-ph-minus': {
+        name: 'Poolife pH Minus',
+        brand: 'Poolife',
+        category: 'Balancers',
+        tagline: 'Lowers pH and alkalinity',
+        activeIngredient: 'Sodium Bisulfate (Dry Acid)',
+        description: 'Lowers the pH and total alkalinity of swimming pool water safely and effectively.',
+        useCases: ['High pH correction', 'Alkalinity adjustment', 'Water balance', 'Improving chlorine efficiency'],
+        benefits: ['Safe dry acid formula', 'Dual action (pH & alkalinity)', 'Improves water clarity', 'Enhances sanitizer effectiveness'],
+        skus: [
+            { sku: '62115', size: '6 lb', cases: 50 },
+            { sku: '62038', size: '25 lb', cases: 36 },
+            { sku: '62135', size: '2.25 lb', cases: 50 }
+        ]
+    },
+    
+    // ========== BAQUACIL PRODUCTS ==========
+    
+    'baquacil-sanitizer': {
+        name: 'BAQUACIL Sanitizer & Algistat',
+        brand: 'BAQUACIL',
+        category: 'Sanitizers',
+        tagline: 'Step 1 of the CDX System',
+        activeIngredient: 'Biguanide (PHMB)',
+        description: 'The foundation of the BAQUACIL CDX System. This chlorine-free sanitizer provides continuous protection against bacteria and algae without the harsh effects of chlorine. Gentle on skin, eyes, and swimwear.',
+        useCases: ['Daily sanitization', 'Chlorine-free pools', 'Sensitive skin', 'Algae prevention'],
+        benefits: ['No chlorine smell', 'Gentle on skin and eyes', 'Won\'t fade swimwear', 'Long-lasting protection'],
+        skus: []
+    },
+    
+    'baquacil-oxidizer': {
+        name: 'BAQUACIL Oxidizer',
+        brand: 'BAQUACIL',
+        category: 'Oxidizers',
+        tagline: 'Step 2 of the CDX System',
+        activeIngredient: '27% Hydrogen Peroxide',
+        description: 'Works with BAQUACIL Sanitizer to oxidize organic contaminants and maintain crystal clear water. Essential part of the 3-step CDX system.',
+        useCases: ['Weekly oxidation', 'Contaminant removal', 'Water clarity', 'System maintenance'],
+        benefits: ['Powerful oxidation', 'Maintains water clarity', 'Works with biguanide', 'No harsh chemicals'],
+        skus: []
+    },
+    
+    'baquacil-cdx': {
+        name: 'BAQUACIL CDX',
+        brand: 'BAQUACIL',
+        category: 'System Products',
+        tagline: 'Step 3 of the CDX System',
+        activeIngredient: 'Algistat Enhancer',
+        description: 'Maintains the sanitizer residual and enhances algae prevention. Completes the 3-step CDX system for optimal chlorine-free pool care.',
+        useCases: ['System maintenance', 'Algae prevention', 'Sanitizer enhancement', 'Water quality'],
+        benefits: ['Enhances sanitizer', 'Prevents algae', 'Maintains water quality', 'Easy to use'],
+        skus: []
+    },
+    
+    'baquacil-algidefense': {
+        name: 'BAQUACIL AlgiDefense Algistat',
+        brand: 'BAQUACIL',
+        category: 'Algaecides',
+        tagline: 'Algae prevention for BAQUACIL systems',
+        activeIngredient: 'Algistat',
+        description: 'Prevents algae growth in BAQUACIL-treated pools. Compatible with the CDX system.',
+        useCases: ['Algae prevention', 'System maintenance', 'Long-term protection', 'BAQUACIL compatible'],
+        benefits: ['System compatible', 'Prevents algae', 'Long-lasting', 'Easy application'],
+        skus: []
+    },
+    
+    'baquacil-performance-algicide': {
+        name: 'BAQUACIL Performance Algicide',
+        brand: 'BAQUACIL',
+        category: 'Algaecides',
+        tagline: 'Heavy-duty 60% Polyquat',
+        activeIngredient: '60% Polyquat',
+        description: 'High-strength algaecide compatible with the BAQUACIL system. Provides superior algae control and prevention.',
+        useCases: ['Algae treatment', 'Prevention', 'Severe blooms', 'Winterizing'],
+        benefits: ['Highest concentration', 'BAQUACIL compatible', 'Long-lasting', 'Non-foaming'],
+        skus: []
+    },
+    
+    // ========== SIRONA PRODUCTS ==========
+    
+    'sirona-brom-tabs': {
+        name: 'Sirona Brom Tabs',
+        brand: 'Sirona',
+        category: 'Sanitizers',
+        tagline: 'BCDMH bromine tablets for spas',
+        activeIngredient: 'BCDMH (Bromine)',
+        description: 'Low-odor, low-dust tablets ideal for spas and hot tubs. Sanitizes spa water, keeping it clear, clean and free of odor. Provides the effectiveness of chlorine without the chlorine odor.',
+        useCases: ['Spa sanitization', 'Hot tub maintenance', 'Bromine systems', 'Continuous sanitizing'],
+        benefits: ['Works in hot water', 'No chlorine odor', 'Effective sanitizer', 'Easy to use'],
+        skus: [
+            { sku: '82135', size: '2.2 lbs', cases: 36 }
+        ]
+    },
+    
+    'sirona-brominating-granular': {
+        name: 'Sirona Brominating Granular',
+        brand: 'Sirona',
+        category: 'Sanitizers',
+        tagline: 'Fast-dissolving granular bromine',
+        activeIngredient: 'Sodium Bromide & Dichlor',
+        description: 'Fast-dissolving granular bromine sanitizer. One-step sanitizer and shock product that dissolves quickly and completely without leaving cloudy water or residue.',
+        useCases: ['Spa sanitization', 'Quick bromine boost', 'Shock treatment', 'Fast-acting'],
+        benefits: ['Fast-dissolving', 'One-step product', 'No cloudy water', 'Complete dissolution'],
+        skus: [
+            { sku: '82143', size: '2 lbs', cases: 56 }
+        ]
+    },
+    
+    'sirona-chlorinating-granules': {
+        name: 'Sirona Chlorinating Granules',
+        brand: 'Sirona',
+        category: 'Sanitizers',
+        tagline: 'Concentrated chlorine for spas',
+        activeIngredient: 'Dichlor',
+        description: 'Specifically formulated for spas and hot tubs. Concentrated chlorine effectively sanitizes hot water. May also be used as a shock treatment.',
+        useCases: ['Spa sanitization', 'Hot tub chlorination', 'Shock treatment', 'Daily maintenance'],
+        benefits: ['Spa-specific formula', 'Concentrated chlorine', 'Dual purpose', 'Effective in hot water'],
+        skus: [
+            { sku: '82145', size: '2 lbs', cases: 56 },
+            { sku: '82132', size: '4 lbs', cases: 40 }
+        ]
+    },
+    
+    'sirona-sodium-bromide': {
+        name: 'Sirona Sodium Bromide',
+        brand: 'Sirona',
+        category: 'Sanitizers',
+        tagline: 'Establishes bromine reserve',
+        activeIngredient: 'Sodium Bromide',
+        description: 'Used during the start-up of the Sirona Brom Tabs system. Establishes a bromide reserve when using bromine tabs. Ensures that the sanitization of the spa is completely bromine-based.',
+        useCases: ['Bromine system start-up', 'Establishing bromide reserve', 'System conversion', 'Initial treatment'],
+        benefits: ['Essential for bromine systems', 'Establishes reserve', 'Complete bromine sanitization', 'Easy application'],
+        skus: [
+            { sku: '82130', size: '6 x 2 oz', cases: 60 }
+        ]
+    },
+    
+    'sirona-spa-minerals': {
+        name: 'Sirona Spa Minerals',
+        brand: 'Sirona',
+        category: 'Sanitizers',
+        tagline: 'Silver chloride mineral sanitizer',
+        activeIngredient: 'Silver Chloride',
+        description: 'Silver chloride minerals work together with low levels of chlorine or bromine. Up to 50% reduction in bromine or chlorine use. Replace every 4 months or when draining and refilling spa.',
+        useCases: ['Chlorine/bromine reduction', 'Mineral sanitization', 'Long-term treatment', 'Cost savings'],
+        benefits: ['Reduces chemical use by 50%', 'Lasts 4 months', 'Works with existing systems', 'Cost-effective'],
+        skus: [
+            { sku: '82133', size: '1 unit', cases: 64 }
+        ]
+    },
+    
+    'sirona-enhance-bromide': {
+        name: 'Sirona Enhance Bromide Salt Solution',
+        brand: 'Sirona',
+        category: 'Sanitizers',
+        tagline: 'Liquid bromide for 2-step system',
+        activeIngredient: 'Sodium Bromide',
+        description: 'Step 1 of 2-step Sirona Enhance and Activate sanitizing system. A stable bank of bromide salt solution. Once Activate is added, bromine is released in the spa water.',
+        useCases: ['2-step bromine system', 'Bromide bank creation', 'System start-up', 'Bromine generation'],
+        benefits: ['Stable bromide solution', 'Part of 2-step system', 'Effective bromine generation', 'Easy to use'],
+        skus: [
+            { sku: '82134', size: '32 fl. oz.', cases: 56 }
+        ]
+    },
+    
+    'sirona-activate': {
+        name: 'Sirona Activate Granular',
+        brand: 'Sirona',
+        category: 'Oxidizers',
+        tagline: 'MPS non-chlorine spa oxidizer',
+        activeIngredient: 'Potassium Monopersulfate (MPS)',
+        description: 'Step 2 of 2-step Sirona Enhance and Activate sanitizing system. Converts sodium bromide into active bromine in the water. Can also be used as shock oxidizer with other bromine or chlorine systems.',
+        useCases: ['After spa use', 'Weekly oxidation', 'Contaminant removal', 'Part of 2-step system'],
+        benefits: ['Non-chlorine oxidizer', 'Activates bromine', 'Multi-purpose', 'Compatible with all systems'],
+        skus: [
+            { sku: '82147', size: '2.2 lbs', cases: 56 },
+            { sku: '82141', size: '5 lbs', cases: 40 }
+        ]
+    },
+    
+    'sirona-replenish': {
+        name: 'Sirona Replenish',
+        brand: 'Sirona',
+        category: 'Shocks',
+        tagline: 'Dichlor spa shock',
+        activeIngredient: 'Dichlor',
+        description: 'One-step shock and oxidizer. Combines the power of MPS and chlorine. Compatible with bromine and chlorine sanitizers.',
+        useCases: ['Heavy contamination', 'Weekly shock', 'Sanitizer boost', 'Problem water'],
+        benefits: ['Dual-action formula', 'Sanitizes and shocks', 'Fast-acting', 'Effective in hot water'],
+        skus: [
+            { sku: '82144', size: '2 lbs', cases: 56 }
+        ]
+    },
+    
+    'sirona-simply-sanitizer': {
+        name: 'Sirona Simply Sanitizer',
+        brand: 'Sirona',
+        category: 'Sanitizers',
+        tagline: 'Chlorine/bromine-free spa care',
+        activeIngredient: 'Biguanide',
+        description: 'Complete chlorine and bromine-free sanitizer for spas. Part of the Sirona Simply system. Gentle on skin, no harsh chemical smell.',
+        useCases: ['Chlorine-free spas', 'Sensitive skin', 'Bromine alternative', 'Gentle sanitization'],
+        benefits: ['No chlorine or bromine', 'Gentle on skin', 'No harsh smell', 'Effective sanitizer'],
+        skus: [
+            { sku: '82121', size: '8 oz', cases: 12 }
+        ]
+    },
+    
+    'sirona-simply-oxidizer': {
+        name: 'Sirona Simply Oxidizer',
+        brand: 'Sirona',
+        category: 'Oxidizers',
+        tagline: 'Hydrogen peroxide oxidizer',
+        activeIngredient: 'Hydrogen Peroxide',
+        description: 'Part of the Sirona Simply chlorine/bromine-free system. Oxidizes contaminants without harsh chemicals.',
+        useCases: ['Weekly oxidation', 'Contaminant removal', 'Simply system maintenance', 'Chlorine-free'],
+        benefits: ['No chlorine/bromine', 'Effective oxidation', 'System compatible', 'Gentle formula'],
+        skus: []
+    },
+    
+    'sirona-phosphate-remover': {
+        name: 'Sirona Phosphate Remover+',
+        brand: 'Sirona',
+        category: 'Specialties',
+        tagline: '3-in-1 phosphate, metal, and scale control',
+        activeIngredient: 'Multi-functional Formula',
+        description: '3-in-1 formula removes phosphates, controls metals, and prevents scale. Helps maintain water quality and reduces maintenance needs.',
+        useCases: ['Phosphate removal', 'Metal control', 'Scale prevention', 'Water quality'],
+        benefits: ['Three functions in one', 'Reduces algae food', 'Prevents staining', 'Prevents scale'],
+        skus: []
+    },
+    
+    'sirona-clarifier': {
+        name: 'Sirona Clarifier',
+        brand: 'Sirona',
+        category: 'Specialties',
+        tagline: 'Spa water clarifier',
+        activeIngredient: 'Clarifier',
+        description: 'Clears cloudy spa water by coagulating fine particles for filter removal. Restores water brilliance.',
+        useCases: ['Cloudy water', 'After shocking', 'Water polishing', 'Filter enhancement'],
+        benefits: ['Fast-acting', 'Restores clarity', 'Improves filtration', 'Easy to use'],
+        skus: []
+    },
+    
+    // ========== PRISTINEBLUE PRODUCTS ==========
+    
+    'pristineblue-main': {
+        name: 'PristineBlue',
+        brand: 'PristineBlue',
+        category: 'System Products',
+        tagline: 'Copper-based algaecide/bactericide',
+        activeIngredient: 'Copper-based Formula',
+        description: 'The cornerstone of the system. It is an algaecide/bactericide that is added to pools and spas at start up and topped off routinely.',
+        useCases: ['Algae prevention', 'Bacteria control', 'System foundation', 'Chlorine alternative'],
+        benefits: ['Copper-based protection', 'Long-lasting', 'Reduces chlorine needs', 'Crystal clear water'],
+        skus: [
+            { sku: '12773', size: 'Quart (32 fl. oz.)', cases: 12 },
+            { sku: '12775', size: 'Half Gallon (64 fl. oz.)', cases: 6 }
+        ]
+    },
+    
+    'pristineblue-check': {
+        name: 'PristineCheck',
+        brand: 'PristineBlue',
+        category: 'System Products',
+        tagline: 'Water prep and mineral sequestrant',
+        activeIngredient: 'Sequestrant',
+        description: 'A water prep. It is added to pools and spas before the introduction of PristineBlue to sequester calcium and other minerals for maximum effectiveness.',
+        useCases: ['System start-up', 'Water preparation', 'Mineral sequestration', 'Pre-treatment'],
+        benefits: ['Prepares water', 'Sequesters minerals', 'Maximizes effectiveness', 'Essential first step'],
+        skus: [
+            { sku: '13832', size: 'Quart (32 fl. oz.)', cases: 12 },
+            { sku: '12772', size: 'Half Gallon (64 fl. oz.)', cases: 6 }
+        ]
+    },
+    
+    'pristineblue-clean': {
+        name: 'PristineClean',
+        brand: 'PristineBlue',
+        category: 'System Products',
+        tagline: 'Scale and metal inhibitor',
+        activeIngredient: 'Scale & Metal Inhibitor',
+        description: 'A scale and metal inhibitor. It prevents metal and mineral particles that enter your water from bonding to walls and other surfaces.',
+        useCases: ['Scale prevention', 'Metal control', 'Surface protection', 'Stain prevention'],
+        benefits: ['Prevents scale', 'Controls metals', 'Protects surfaces', 'Prevents staining'],
+        skus: [
+            { sku: '13232', size: 'Quart (32 fl. oz.)', cases: 12 }
+        ]
+    },
+    
+    'pristineblue-clear': {
+        name: 'PristineClear',
+        brand: 'PristineBlue',
+        category: 'Clarifiers',
+        tagline: 'System clarifier',
+        activeIngredient: 'Clarifier',
+        description: 'Clears cloudy water in pools and spas by bringing suspended particles together, enabling the filtration system to better remove the particles.',
+        useCases: ['Water clarity', 'Fine particle removal', 'After shocking', 'Regular maintenance'],
+        benefits: ['System compatible', 'Crystal clear water', 'Improves filtration', 'Easy to use'],
+        skus: [
+            { sku: '14032', size: 'Quart (32 fl. oz.)', cases: 12 }
+        ]
+    },
+    
+    'pristineblue-extra': {
+        name: 'PristineExtra',
+        brand: 'PristineBlue',
+        category: 'Shocks',
+        tagline: '99% Dichlor shock',
+        activeIngredient: '99% Dichlor (Sodium Di-chlor)',
+        description: 'Contains 99% sodium di-chlor (granular chlorine). It is an effective shock treatment that can be used at start-up, during routine maintenance or for troubleshooting as needed. It is a primary sanitizer.',
+        useCases: ['Weekly shock', 'Heavy use', 'Oxidation', 'Sanitizer boost'],
+        benefits: ['High purity', 'Fast-acting', 'Compatible with PristineBlue', 'Effective oxidizer'],
+        skus: [
+            { sku: '18716', size: '1 lb', cases: 24 },
+            { sku: '18780', size: '4 lb', cases: 6 },
+            { sku: '18725', size: '25 lb', cases: 1 }
+        ]
+    },
+    
+    'pristineblue-power': {
+        name: 'PristinePower',
+        brand: 'PristineBlue',
+        category: 'Oxidizers',
+        tagline: 'MPS non-chlorine oxidizer',
+        activeIngredient: 'MPS (Potassium Monopersulfate)',
+        description: 'A potassium monopersulfate shock oxidizer. It is used to oxidize organic contaminants that cause cloudy water. This product does not contain chlorine.',
+        useCases: ['Non-chlorine oxidation', 'Regular maintenance', 'After heavy use', 'Quick swim needs'],
+        benefits: ['No chlorine added', 'Swim quickly', 'Effective oxidizer', 'System compatible'],
+        skus: [
+            { sku: '16940', size: '1 lb', cases: 24 },
+            { sku: '16980', size: '5 lb', cases: 6 },
+            { sku: '44393', size: '25 lb', cases: 1 }
+        ]
+    },
+    
+    'pristineblue-pool-kit': {
+        name: 'PristineBlue Pool Start-Up Kit',
+        brand: 'PristineBlue',
+        category: 'Kits',
+        tagline: 'Complete pool start-up kit',
+        activeIngredient: 'System Kit',
+        description: 'Provides everything you need to start your pool (up to 16,000 gallons).',
+        useCases: ['Pool start-up', 'New installations', 'System conversion', 'Complete kit'],
+        benefits: ['Complete system', 'Easy start-up', 'All-in-one', 'Up to 16K gallons'],
+        skus: [
+            { sku: '62851', size: 'Kit', cases: 1 }
+        ]
+    },
+    
+    'pristineblue-spa-kit': {
+        name: 'PristineBlue Spa Kit',
+        brand: 'PristineBlue',
+        category: 'Kits',
+        tagline: 'Complete spa start-up kit',
+        activeIngredient: 'System Kit',
+        description: 'Provides everything you need to start your spa.',
+        useCases: ['Spa start-up', 'New installations', 'System conversion', 'Complete kit'],
+        benefits: ['Complete system', 'Easy start-up', 'All-in-one', 'Spa-specific'],
+        skus: [
+            { sku: '29108', size: 'Kit', cases: 1 }
+        ]
+    },
+    
+    'pristineblue-test-kit': {
+        name: 'PristineBlue Mini Test Kit',
+        brand: 'PristineBlue',
+        category: 'Testing',
+        tagline: 'Tests PristineBlue levels',
+        activeIngredient: 'Test Kit',
+        description: 'Measures PristineBlue level in pools and spas.',
+        useCases: ['Testing PristineBlue levels', 'System monitoring', 'Regular testing', 'Maintenance'],
+        benefits: ['Accurate testing', 'Easy to use', 'System-specific', 'Essential tool'],
+        skus: [
+            { sku: '44272', size: 'Test Kit', cases: 12 }
+        ]
+    }
+};
+        
         // Product Recommendation Database
         const recommendations = {
             'green water': {
@@ -1356,6 +2191,87 @@
                 
                 details.classList.add('expanded');
                 toggle.textContent = '▲ Hide Products';
+            }
+        }
+        
+        // Show Product Detail Modal
+        function showProductDetail(productId, event) {
+            event.stopPropagation();
+            
+            const product = productDatabase[productId];
+            if (!product) return;
+            
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductTagline').textContent = product.tagline;
+            document.getElementById('modalActiveIngredient').textContent = product.activeIngredient;
+            
+            let bodyHTML = `
+                <div class="modal-section">
+                    <div class="modal-section-title">Description</div>
+                    <div class="modal-description">${product.description}</div>
+                </div>
+            `;
+            
+            if (product.useCases && product.useCases.length > 0) {
+                bodyHTML += `
+                    <div class="modal-section">
+                        <div class="modal-section-title">Use Cases</div>
+                        <div class="modal-grid">
+                            ${product.useCases.map(useCase => `<div class="modal-item">✓ ${useCase}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (product.benefits && product.benefits.length > 0) {
+                bodyHTML += `
+                    <div class="modal-section">
+                        <div class="modal-section-title">Key Benefits</div>
+                        <div class="modal-grid">
+                            ${product.benefits.map(benefit => `<div class="modal-item">★ ${benefit}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (product.skus && product.skus.length > 0) {
+                bodyHTML += `
+                    <div class="modal-section">
+                        <div class="modal-section-title">Available SKUs & Package Sizes</div>
+                        <table class="modal-sku-table">
+                            <thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Size</th>
+                                    <th>Units/Case</th>
+                                    <th>Cases/Pallet</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${product.skus.map(sku => `
+                                    <tr>
+                                        <td>${sku.sku}</td>
+                                        <td>${sku.size}</td>
+                                        <td>${sku.unitPerCase}</td>
+                                        <td>${sku.casesPerPallet}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('modalBody').innerHTML = bodyHTML;
+            document.getElementById('productModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close Modal
+        function closeModal(event) {
+            if (!event || event.target.id === 'productModal') {
+                document.getElementById('productModal').classList.remove('show');
+                document.body.style.overflow = 'auto';
             }
         }
         
