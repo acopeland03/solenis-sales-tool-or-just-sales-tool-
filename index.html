@@ -57,7 +57,7 @@
         
         .tab-button {
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
             padding: 15px 10px;
             background: #FFFFFF;
             border: none;
@@ -307,7 +307,7 @@
             color: #5A6C75;
         }
         
-        /* Product Cards - NEW EXPANDABLE DESIGN */
+        /* Product Cards - EXPANDABLE DESIGN */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -403,6 +403,146 @@
             left: 5px;
         }
         
+        /* PRODUCT ASSISTANT STYLES */
+        .assistant-search {
+            background: linear-gradient(135deg, #0D3B47 0%, #1A4D5A 100%);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .assistant-search h3 {
+            color: #FFFFFF;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .search-box button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            padding: 0 20px;
+            background: #1DE9B6;
+            border: none;
+            border-radius: 4px;
+            color: #0D3B47;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-box button:hover {
+            background: #0D9B7E;
+            color: #FFFFFF;
+        }
+        
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .quick-question-btn {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            color: #FFFFFF;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-question-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .recommendation-result {
+            display: none;
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 20px;
+            border-left: 4px solid #1DE9B6;
+        }
+        
+        .recommendation-result.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        .result-problem {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0D3B47;
+            margin-bottom: 15px;
+        }
+        
+        .result-products {
+            margin-top: 20px;
+        }
+        
+        .result-product-item {
+            background: #F8FEFF;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 3px solid #1DE9B6;
+        }
+        
+        .result-product-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0D3B47;
+            margin-bottom: 5px;
+        }
+        
+        .result-product-desc {
+            font-size: 14px;
+            color: #5A6C75;
+            line-height: 1.5;
+        }
+        
+        .result-why {
+            background: #FFF9E6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 3px solid #FFB800;
+        }
+        
+        .result-why-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0D3B47;
+            margin-bottom: 5px;
+        }
+        
+        .result-why-text {
+            font-size: 14px;
+            color: #5A6C75;
+            line-height: 1.5;
+        }
+        
         /* Contact Buttons */
         .contact-buttons {
             display: flex;
@@ -442,8 +582,8 @@
             }
             
             .tab-button {
-                min-width: 100px;
-                font-size: 13px;
+                min-width: 85px;
+                font-size: 12px;
                 padding: 12px 8px;
             }
             
@@ -483,6 +623,7 @@
         <button class="tab-button" onclick="switchTab('calhypo')">Cal Hypo</button>
         <button class="tab-button" onclick="switchTab('clearfund')">ClearFund</button>
         <button class="tab-button" onclick="switchTab('products')">Products</button>
+        <button class="tab-button" onclick="switchTab('assistant')">Assistant</button>
         <button class="tab-button" onclick="switchTab('contact')">Contact</button>
     </div>
     
@@ -699,7 +840,7 @@
             </div>
         </div>
         
-        <!-- PRODUCTS TAB - UPDATED WITH EXPANDABLE SECTIONS -->
+        <!-- PRODUCTS TAB -->
         <div id="products" class="tab-content">
             <div class="card">
                 <h2 class="card-title">Dealer Direct Product Portfolio</h2>
@@ -945,6 +1086,38 @@
             </div>
         </div>
         
+        <!-- PRODUCT ASSISTANT TAB - NEW! -->
+        <div id="assistant" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">🔍 Product Recommendation Assistant</h2>
+                <p class="info-text">Describe your pool or spa problem, and we'll recommend the right Solenis products to solve it.</p>
+                
+                <div class="assistant-search">
+                    <h3>What's your pool or spa issue?</h3>
+                    <div class="search-box">
+                        <input type="text" id="assistantInput" placeholder="e.g., my pool water is green and cloudy" onkeypress="if(event.key==='Enter') getRecommendation()">
+                        <button onclick="getRecommendation()">Search</button>
+                    </div>
+                    <div class="quick-questions">
+                        <button class="quick-question-btn" onclick="quickSearch('green water')">Green Water</button>
+                        <button class="quick-question-btn" onclick="quickSearch('cloudy pool')">Cloudy Pool</button>
+                        <button class="quick-question-btn" onclick="quickSearch('algae')">Algae Problem</button>
+                        <button class="quick-question-btn" onclick="quickSearch('chlorine free')">Chlorine-Free</button>
+                        <button class="quick-question-btn" onclick="quickSearch('spa care')">Spa Care</button>
+                        <button class="quick-question-btn" onclick="quickSearch('no cyanuric acid')">No CYA</button>
+                        <button class="quick-question-btn" onclick="quickSearch('shock treatment')">Shock Treatment</button>
+                        <button class="quick-question-btn" onclick="quickSearch('stains')">Stains</button>
+                    </div>
+                </div>
+                
+                <div class="recommendation-result" id="recommendationResult">
+                    <div class="result-problem" id="resultProblem"></div>
+                    <div class="result-products" id="resultProducts"></div>
+                    <div class="result-why" id="resultWhy"></div>
+                </div>
+            </div>
+        </div>
+        
         <!-- CONTACT TAB -->
         <div id="contact" class="tab-content">
             <div class="card">
@@ -997,23 +1170,137 @@
     </div>
     
     <script>
+        // Product Recommendation Database
+        const recommendations = {
+            'green water': {
+                problem: 'Green Water (Algae Infestation)',
+                products: [
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% - The strongest shock treatment to kill algae fast and restore water clarity' },
+                    { name: 'Poolife Defend+ Algaecide', desc: '20% Poly Quat formula prevents algae regrowth and keeps water crystal clear' },
+                    { name: 'Poolife AlgaeKill Extreme', desc: '9.3% Copper-based algaecide for severe algae blooms and resistant strains' }
+                ],
+                why: 'Green water indicates algae growth due to low chlorine levels. Shock the pool first with TurboShock to kill existing algae, then add Defend+ algaecide to prevent regrowth. Run pump continuously for 24-48 hours and brush all surfaces.'
+            },
+            'cloudy pool': {
+                problem: 'Cloudy or Hazy Water',
+                products: [
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% shock treatment to oxidize contaminants causing cloudiness' },
+                    { name: 'Poolife Gold Medal Clarifier', desc: 'Coagulates fine particles so your filter can remove them effectively' },
+                    { name: 'Poolife TurboBlu Clarifier', desc: 'Fast-acting clarifier for quick water clarity restoration' }
+                ],
+                why: 'Cloudy water is usually caused by poor filtration, low sanitizer, or high pH. Test and balance pH to 7.4-7.6, shock if needed, add clarifier, and run pump continuously until water clears (24-48 hours).'
+            },
+            'algae': {
+                problem: 'Algae Growth (Green, Black, or Mustard)',
+                products: [
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% - Strongest shock to kill all types of algae' },
+                    { name: 'Poolife Super AlgaeBomb 60', desc: '60% Poly Quat - Heavy-duty algaecide for stubborn algae' },
+                    { name: 'Poolife Back to Blue Shock System', desc: 'Two-part system turns green pools sparkling blue in 24 hours' }
+                ],
+                why: 'Algae thrives in warm water with low chlorine. Heavy shock treatment combined with powerful algaecide will eliminate existing algae. Brush all surfaces vigorously, vacuum to waste, and maintain proper chlorine levels to prevent return.'
+            },
+            'chlorine free': {
+                problem: 'Chlorine-Free Pool Care Options',
+                products: [
+                    { name: 'BAQUACIL CDX System', desc: 'Complete 3-step biguanide-based system - gentle on skin and eyes, no chlorine smell' },
+                    { name: 'PristineBlue System', desc: 'Copper-based algaecide and clarifier - non-chlorine alternative for crystal clear water' },
+                    { name: 'Sirona Simply Sanitizer', desc: 'Biguanide spa care system - chlorine and bromine-free' }
+                ],
+                why: 'Perfect for customers with chlorine sensitivity or allergies. BAQUACIL uses biguanide technology for pools, while PristineBlue uses copper-based chemistry. Both provide effective sanitization without chlorine.'
+            },
+            'spa care': {
+                problem: 'Spa & Hot Tub Care',
+                products: [
+                    { name: 'Sirona Brom Tabs', desc: 'BCDMH bromine tablets - ideal for hot water, no chlorine odor' },
+                    { name: 'Sirona Activate Granular', desc: 'MPS non-chlorine oxidizer for regular spa maintenance' },
+                    { name: 'Sirona Simply System', desc: 'Complete chlorine/bromine-free spa care for sensitive skin' }
+                ],
+                why: 'Spas require different chemistry than pools due to hot water and heavy bather load. Bromine works better than chlorine in hot water, while MPS oxidizers keep water fresh between bromine treatments.'
+            },
+            'no cyanuric acid': {
+                problem: 'Chlorine Without Cyanuric Acid (CYA)',
+                products: [
+                    { name: 'Poolife NST Prime Tablets', desc: 'Slow-dissolving Cal Hypo tablets - no CYA added, prevents chlorine lock' },
+                    { name: 'Poolife Active Cleaning Granules', desc: 'Cal Hypo 68% granules - daily sanitizer without CYA buildup' },
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% shock - strongest available, zero CYA' }
+                ],
+                why: 'Cyanuric acid (CYA) from trichlor and dichlor builds up over time, causing chlorine lock. Cal Hypo products add zero CYA, preventing this problem and eliminating costly drain-and-refill cycles.'
+            },
+            'shock treatment': {
+                problem: 'Pool Shock Treatment',
+                products: [
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% - Strongest shock available, fast-acting' },
+                    { name: 'Poolife Rapid Shock', desc: 'Cal Hypo 68% - Quick chlorine boost for weekly maintenance' },
+                    { name: 'Poolife Non-Chlorine Oxidizer', desc: 'MPS oxidizer - swim in 15 minutes, no chlorine added' }
+                ],
+                why: 'Shocking oxidizes contaminants, kills bacteria, and restores chlorine effectiveness. Use TurboShock for heavy contamination or algae. Use Non-Chlorine Oxidizer for routine maintenance when you need to swim quickly.'
+            },
+            'stains': {
+                problem: 'Pool Stains & Discoloration',
+                products: [
+                    { name: 'Poolife Endure Water Conditioner', desc: 'Metal sequestrant prevents and removes metal stains (iron, copper)' },
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% removes organic stains from leaves, berries, algae' },
+                    { name: 'Poolife Enzyme for Pools', desc: 'Breaks down oils and organic materials that cause staining' }
+                ],
+                why: 'Stains come from metals (iron, copper) or organics (leaves, algae). Test stain type: if vitamin C lightens it, it\'s metal-based (use Endure). If chlorine removes it, it\'s organic (use TurboShock and enzyme).'
+            },
+            'foamy water': {
+                problem: 'Foamy or Oily Water',
+                products: [
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% oxidizes oils and organic contaminants' },
+                    { name: 'Poolife Enzyme for Pools', desc: 'Breaks down body oils, lotions, and sunscreen' },
+                    { name: 'Sirona Foam Out', desc: 'Spa foam eliminator - works instantly' }
+                ],
+                why: 'Foam is caused by body oils, lotions, sunscreen, or low-quality algaecides. Shock the pool to oxidize contaminants, add enzyme to break down oils, and clean filters thoroughly.'
+            },
+            'low chlorine': {
+                problem: 'Low Chlorine / High Chlorine Demand',
+                products: [
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% - Heavy shock to restore chlorine levels fast' },
+                    { name: 'Poolife Active Cleaning Granules', desc: 'Cal Hypo 68% - Boost daily chlorine levels' },
+                    { name: 'Poolife NST Prime Tablets', desc: 'Slow-dissolving Cal Hypo for consistent chlorine release' }
+                ],
+                why: 'Low chlorine allows bacteria and algae to grow. Heavy shocking restores sanitizer levels. If chlorine disappears quickly, check for algae (hidden cause of chlorine demand) and high CYA levels (chlorine lock).'
+            },
+            'high ph': {
+                problem: 'High pH or Alkalinity',
+                products: [
+                    { name: 'Poolife pH Minus', desc: 'Dry acid to lower pH and alkalinity safely' },
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% - Also helps lower pH while shocking' }
+                ],
+                why: 'High pH (above 7.8) reduces chlorine effectiveness and causes cloudy water and scaling. Add pH Minus gradually, retest after 24 hours. Adjust alkalinity first, then pH for best results.'
+            },
+            'chlorine lock': {
+                problem: 'Chlorine Lock (High Cyanuric Acid)',
+                products: [
+                    { name: 'Poolife NST Prime Tablets', desc: 'Cal Hypo tablets add zero CYA - prevents further buildup' },
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% shock without adding CYA' },
+                    { name: 'Poolife Active Cleaning Granules', desc: 'Cal Hypo 68% daily sanitizer, no CYA' }
+                ],
+                why: 'Cyanuric acid over 80 ppm causes chlorine lock - chlorine is present but ineffective. Solution: partially drain and refill pool, then switch to Cal Hypo products that add zero CYA to prevent recurrence.'
+            },
+            'after storm': {
+                problem: 'Pool Care After Heavy Rain or Storm',
+                products: [
+                    { name: 'Poolife TurboShock', desc: 'Cal Hypo 78% - Heavy shock to kill bacteria and contaminants' },
+                    { name: 'Poolife Defend+ Algaecide', desc: '20% Poly Quat prevents algae from storm runoff' },
+                    { name: 'Poolife Gold Medal Clarifier', desc: 'Clears cloudy water from rain dilution' }
+                ],
+                why: 'Rain dilutes chlorine, adds contaminants, and can introduce algae spores. Test and rebalance chemistry, shock heavily, add algaecide preventatively, and run pump continuously for 24 hours.'
+            }
+        };
+        
         // Tab Switching
         function switchTab(tabName) {
-            // Hide all tabs
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
             
-            // Remove active from all buttons
             const buttons = document.querySelectorAll('.tab-button');
             buttons.forEach(btn => btn.classList.remove('active'));
             
-            // Show selected tab
             document.getElementById(tabName).classList.add('active');
-            
-            // Highlight selected button
             event.target.classList.add('active');
             
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
@@ -1062,15 +1349,92 @@
                 details.classList.remove('expanded');
                 toggle.textContent = '▼ View Products';
             } else {
-                // Close all other products first
                 const allDetails = document.querySelectorAll('.product-details');
                 const allToggles = document.querySelectorAll('.product-toggle');
                 allDetails.forEach(d => d.classList.remove('expanded'));
                 allToggles.forEach(t => t.textContent = '▼ View Products');
                 
-                // Open clicked product
                 details.classList.add('expanded');
                 toggle.textContent = '▲ Hide Products';
+            }
+        }
+        
+        // Product Recommendation Assistant
+        function quickSearch(query) {
+            document.getElementById('assistantInput').value = query;
+            getRecommendation();
+        }
+        
+        function getRecommendation() {
+            const input = document.getElementById('assistantInput').value.toLowerCase().trim();
+            const resultDiv = document.getElementById('recommendationResult');
+            const problemDiv = document.getElementById('resultProblem');
+            const productsDiv = document.getElementById('resultProducts');
+            const whyDiv = document.getElementById('resultWhy');
+            
+            if (!input) {
+                resultDiv.classList.remove('show');
+                return;
+            }
+            
+            // Find matching recommendation
+            let match = null;
+            for (const key in recommendations) {
+                if (input.includes(key) || key.includes(input)) {
+                    match = recommendations[key];
+                    break;
+                }
+            }
+            
+            // Fallback matching for common terms
+            if (!match) {
+                if (input.includes('green') || input.includes('algae')) match = recommendations['green water'];
+                else if (input.includes('cloud') || input.includes('hazy') || input.includes('milky')) match = recommendations['cloudy pool'];
+                else if (input.includes('shock')) match = recommendations['shock treatment'];
+                else if (input.includes('chlor') && (input.includes('free') || input.includes('alternative'))) match = recommendations['chlorine free'];
+                else if (input.includes('spa') || input.includes('hot tub')) match = recommendations['spa care'];
+                else if (input.includes('cya') || input.includes('cyanuric') || input.includes('stabilizer')) match = recommendations['no cyanuric acid'];
+                else if (input.includes('stain') || input.includes('discolor')) match = recommendations['stains'];
+                else if (input.includes('foam') || input.includes('oil') || input.includes('greasy')) match = recommendations['foamy water'];
+                else if (input.includes('low chlorine') || input.includes('no chlorine')) match = recommendations['low chlorine'];
+                else if (input.includes('high ph') || input.includes('alkalinity')) match = recommendations['high ph'];
+                else if (input.includes('lock') || input.includes('ineffective')) match = recommendations['chlorine lock'];
+                else if (input.includes('rain') || input.includes('storm')) match = recommendations['after storm'];
+            }
+            
+            if (match) {
+                problemDiv.textContent = match.problem;
+                
+                let productsHTML = '';
+                match.products.forEach(product => {
+                    productsHTML += `
+                        <div class="result-product-item">
+                            <div class="result-product-name">${product.name}</div>
+                            <div class="result-product-desc">${product.desc}</div>
+                        </div>
+                    `;
+                });
+                productsDiv.innerHTML = productsHTML;
+                
+                whyDiv.innerHTML = `
+                    <div class="result-why-title">💡 Why These Products?</div>
+                    <div class="result-why-text">${match.why}</div>
+                `;
+                
+                resultDiv.classList.add('show');
+            } else {
+                problemDiv.textContent = 'No exact match found';
+                productsDiv.innerHTML = `
+                    <div class="result-product-item">
+                        <div class="result-product-name">Contact Your Territory Sales Manager</div>
+                        <div class="result-product-desc">For specific technical questions or unique water chemistry issues, your dedicated TSM can provide personalized product recommendations.</div>
+                    </div>
+                `;
+                whyDiv.innerHTML = `
+                    <div class="result-why-title">💡 Try These Common Questions:</div>
+                    <div class="result-why-text">Green water, cloudy pool, algae problem, chlorine-free options, spa care, shock treatment, stains, or no cyanuric acid.</div>
+                `;
+                resultDiv.classList.add('show');
             }
         }
     </script>
